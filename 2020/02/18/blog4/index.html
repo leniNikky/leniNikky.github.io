@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <title>Set和Map数据结构 | Coding with cooker&#39; soul</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="SetSet&amp;#x662F;ES6&amp;#x63D0;&amp;#x4F9B;&amp;#x7684;&amp;#x6570;&amp;#x636E;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;&amp;#x7C7B;&amp;#x4F3C;&amp;#x4E8E;&amp;#x6570;&amp;#x7EC4;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x6210;&amp;#x5458;&amp;#x7684;&amp;#x503C;&amp;#x662F;&amp;#x552F;&amp;#x4E00">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Set和Map数据结构">
+<meta property="og:url" content="http://yoursite.com/2020/02/18/blog4/index.html">
+<meta property="og:site_name" content="Coding with cooker&#39; soul">
+<meta property="og:description" content="SetSet&amp;#x662F;ES6&amp;#x63D0;&amp;#x4F9B;&amp;#x7684;&amp;#x6570;&amp;#x636E;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;&amp;#x7C7B;&amp;#x4F3C;&amp;#x4E8E;&amp;#x6570;&amp;#x7EC4;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x6210;&amp;#x5458;&amp;#x7684;&amp;#x503C;&amp;#x662F;&amp;#x552F;&amp;#x4E00">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-18T15:13:39.004Z">
+<meta property="article:modified_time" content="2020-02-18T15:22:30.312Z">
+<meta property="article:author" content="Leni">
+<meta name="twitter:card" content="summary">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "Leni",
+  "url": "http://yoursite.com"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>Coding with cooker&#39; soul</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">Leni</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-blog4" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Set和Map数据结构
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <html><head></head><body><h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p>Set&#x662F;ES6&#x63D0;&#x4F9B;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E;&#x6570;&#x7EC4;&#xFF0C;&#x4F46;&#x662F;&#x6210;&#x5458;&#x7684;&#x503C;&#x662F;&#x552F;&#x4E00;&#x7684;&#xFF0C;&#x6728;&#x6709;&#x91CD;&#x590D;&#x3002;Set&#x672C;&#x8EAB;&#x662F;&#x4E00;&#x4E2A;&#x6784;&#x9020;&#x51FD;&#x6570;</p>
+<p><em>ps&#xFF1A;&#x6784;&#x9020;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x5F00;&#x5934;&#x5B57;&#x6BCD;&#x8981;&#x5927;&#x5199;&#xFF0C;this&#x6307;&#x5411;&#x5B9E;&#x4F8B;&#xFF0C;&#x4F7F;&#x7528;new&#x6765;&#x751F;&#x6210;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</em></p>
+<h4 id="&#x57FA;&#x672C;&#x7528;&#x6CD5;"><a href="#&#x57FA;&#x672C;&#x7528;&#x6CD5;" class="headerlink" title="&#x57FA;&#x672C;&#x7528;&#x6CD5;"></a>&#x57FA;&#x672C;&#x7528;&#x6CD5;</h4><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> s = <span class="keyword">new</span> <span class="built_in">Set</span>()</span><br></pre></td></tr></tbody></table></figure>
+<p>add&#x65B9;&#x6CD5;&#xFF1A;&#x5411;Set&#x7ED3;&#x6784;&#x52A0;&#x5165;&#x6210;&#x5458;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>].forEach(<span class="function"><span class="params">x</span>=&gt;</span>s.add(x))</span><br><span class="line"><span class="comment">// 1 2 3</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Set&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF08;&#x6216;&#x8005;&#x5177;&#x6709;iterable&#x63A5;&#x53E3;&#x7684;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF09;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#xFF0C;&#x7528;&#x6765;&#x521D;&#x59CB;&#x5316;&#x3002;&#x5982;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">set</span> = new Set([1,2,3,4,4])</span><br><span class="line">[...<span class="keyword">set</span>]</span><br><span class="line">[1,2,3,4]</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x83B7;&#x53D6;Set&#x5B9E;&#x4F8B;&#x957F;&#x5EA6;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> item = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>])</span><br><span class="line">item.size <span class="comment">// 4</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x53EF;&#x4EE5;&#x5229;&#x7528;Set&#x53BB;&#x9664;&#x6570;&#x7EC4;&#x7684;&#x91CD;&#x590D;&#x6210;&#x5458;,</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...new <span class="built_in">Set</span>(array)]</span><br></pre></td></tr></tbody></table></figure>
+<p>Array.from&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5C06;Set&#x7ED3;&#x6784;&#x8F6C;&#x6362;&#x4E3A;&#x6570;&#x7EC4;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dedupe</span>(<span class="params">array</span>)</span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(array))</span><br><span class="line">}</span><br><span class="line">dedupe([<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>]) <span class="comment">// [1,2,3]</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5411;Set&#x52A0;&#x5165;&#x503C;&#xFF0C;&#x4E0D;&#x4F1A;&#x4F7F;&#x503C;&#x53D1;&#x751F;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#xFF0C;&#x5982;5&#x548C;&#x201D;5&#x201D;&#x662F;&#x4E24;&#x4E2A;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x503C;&#xFF0C;Set&#x5185;&#x5BB9;&#x5224;&#x65AD;&#x662F;&#x5426;&#x76F8;&#x7B49;&#x7684;&#x7B97;&#x6CD5;&#x8BA4;&#x4E3A;NaN&#x7B49;&#x4E8E;&#x672C;&#x8EAB;&#xFF0C;&#x8FD9;&#x70B9;&#x548C;===&#x4E0D;&#x4E00;&#x6837;&#x3002;<br>&#x53E6;&#x5916;&#xFF0C;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#x662F;&#x4E0D;&#x76F8;&#x7B49;&#x7684;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set()</span><br><span class="line"><span class="keyword">set</span>.add({})</span><br><span class="line"><span class="keyword">set</span>.add({})</span><br><span class="line"><span class="keyword">set</span>.size // 2</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Set&#x5B9E;&#x4F8B;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;"><a href="#Set&#x5B9E;&#x4F8B;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;" class="headerlink" title="Set&#x5B9E;&#x4F8B;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;"></a>Set&#x5B9E;&#x4F8B;&#x5C5E;&#x6027;&#x548C;&#x65B9;&#x6CD5;</h4><ul class="ui list">
+<li>add(val): &#x6DFB;&#x52A0;&#x67D0;&#x4E2A;&#x503C;&#xFF0C; &#x8FD4;&#x56DE;Set&#x7ED3;&#x6784;&#x672C;&#x8EAB;</li>
+<li>delete(val)&#xFF1A;&#x5220;&#x9664;&#x67D0;&#x4E2A;&#x503C;&#xFF0C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x503C;&#xFF0C;&#x8868;&#x793A;&#x662F;&#x5426;&#x5220;&#x9664;&#x6210;&#x529F;</li>
+<li>has(val): &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x503C;&#xFF0C;&#x8868;&#x793A;&#x53C2;&#x6570;&#x662F;&#x5426;&#x4E3A;Set&#x6210;&#x5458;</li>
+<li>clear()&#xFF1A;&#x6E05;&#x9664;&#x6240;&#x6709;&#x6210;&#x5458;&#xFF0C;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set()</span><br><span class="line"><span class="keyword">set</span>.add(1).add(2)</span><br><span class="line"><span class="keyword">set</span>.has(1) // true</span><br><span class="line"><span class="keyword">set</span>.delete(2) // true</span><br><span class="line"><span class="keyword">set</span>.has(2) // false</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+</ul>
+<h4 id="&#x904D;&#x5386;&#x64CD;&#x4F5C;"><a href="#&#x904D;&#x5386;&#x64CD;&#x4F5C;" class="headerlink" title="&#x904D;&#x5386;&#x64CD;&#x4F5C;"></a>&#x904D;&#x5386;&#x64CD;&#x4F5C;</h4><p>Set&#x7ED3;&#x6784;&#x7684;&#x5B9E;&#x4F8B;&#x6709;4&#x79CD;&#x904D;&#x5386;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul class="ui list">
+<li>keys(): &#x8FD4;&#x56DE;&#x952E;&#x540D;&#x7684;&#x904D;&#x5386;&#x5668;</li>
+<li>values(): &#x8FD4;&#x56DE;&#x952E;&#x503C;&#x7684;&#x904D;&#x5386;&#x5668;</li>
+<li>entries(): &#x8FD4;&#x56DE;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x904D;&#x5386;&#x5668;</li>
+<li>forEach()&#xFF1A;&#x4F7F;&#x7528;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#x904D;&#x5386;&#x6BCF;&#x4E2A;&#x6210;&#x5458;<br>Set&#x7ED3;&#x6784;&#x6CA1;&#x6709;&#x952E;&#x540D;&#xFF0C;&#x53EA;&#x6709;&#x952E;&#x503C;&#xFF08;&#x952E;&#x540D;&#x7B49;&#x4E8E;&#x952E;&#x503C;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;keys&#x548C;values&#x65B9;&#x6CD5;&#x884C;&#x4E3A;&#x662F;&#x4E00;&#x6837;&#x7684;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span>&#xA0;<span class="keyword">set</span>&#xA0;=&#xA0;new&#xA0;Set([&apos;green&apos;,&apos;red&apos;,&apos;yellow&apos;])</span><br><span class="line">for(let&#xA0;item&#xA0;of&#xA0;<span class="keyword">set</span>.keys()){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="built_in">console</span>.log(item)</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;green</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;red</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;yellow</span></span><br><span class="line">}</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span>&#xA0;item&#xA0;<span class="keyword">of</span>&#xA0;<span class="keyword">set</span>.values()){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="built_in">console</span>.log(item)</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;green</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;red</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;yellow</span></span><br><span class="line">}</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span>&#xA0;item&#xA0;<span class="keyword">of</span>&#xA0;<span class="keyword">set</span>.entries()){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="built_in">console</span>.log(<span class="string">&quot;entries&quot;</span>,item)</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;entries&#xA0;[&#xA0;&apos;green&apos;,&#xA0;&apos;green&apos;&#xA0;]</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;entries&#xA0;[&#xA0;&apos;red&apos;,&#xA0;&apos;red&apos;&#xA0;]</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;entries&#xA0;[&#xA0;&apos;yellow&apos;,&#xA0;&apos;yellow&apos;&#xA0;]</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+Set&#x5B9E;&#x4F8B;&#x9ED8;&#x8BA4;&#x53EF;&#x904D;&#x5386;&#xFF0C;&#x9ED8;&#x8BA4;&#x904D;&#x5386;&#x5668;&#x751F;&#x6210;&#x7684;&#x51FD;&#x6570;&#x5C31;&#x662F;values&#x65B9;&#x6CD5;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>.prototype[<span class="built_in">Symbol</span>.iterator]&#xA0;===&#xA0;<span class="built_in">Set</span>.prototype.values</span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></tbody></table></figure>
+&#x8FD9;&#x610F;&#x5473;&#x7740;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;for&#x2026;of&#x4EE3;&#x66FF;values&#x904D;&#x5386;Set<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">set</span> = new Set([&apos;red&apos;,&apos;green&apos;,&apos;yellow&apos;])</span><br><span class="line">for(let x of <span class="keyword">set</span>){</span><br><span class="line">    <span class="built_in">console</span>.log(x)</span><br><span class="line">}</span><br><span class="line"><span class="comment">// red</span></span><br><span class="line"><span class="comment">// green</span></span><br><span class="line"><span class="comment">// yellow</span></span><br></pre></td></tr></tbody></table></figure>
+forEach&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5BF9;&#x6BCF;&#x4E2A;&#x6210;&#x5458;&#x6267;&#x884C;&#x67D0;&#x4E9B;&#x64CD;&#x4F5C;&#xFF0C;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span>&#xA0;<span class="keyword">set</span>&#xA0;=&#xA0;new&#xA0;Set([1,2,3])</span><br><span class="line"><span class="keyword">set</span>.forEach((val,key)=&gt;{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="built_in">console</span>.log(val*<span class="number">2</span>)</span><br><span class="line">})</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 4</span></span><br><span class="line"><span class="comment">// 6</span></span><br></pre></td></tr></tbody></table></figure>
+forEach&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x662F;&#x4E00;&#x4E2A;&#x5904;&#x7406;&#x51FD;&#x6570;&#xFF0C;&#x8BE5;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x4F9D;&#x6B21;&#x662F;&#x952E;&#x503C;&#x3001;&#x952E;&#x540D;&#x3001;&#x96C6;&#x5408;&#x672C;&#x8EAB;&#xFF1B;&#x53E6;&#x5916;&#xFF0C;forEach&#x65B9;&#x6CD5;&#x8FD8;&#x53EF;&#x4EE5;&#x6709;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x7ED1;&#x5B9A;&#x7684;this&#x5BF9;&#x8C61;</li>
+<li><em>&#x904D;&#x5386;&#x7684;&#x5E94;&#x7528;*</em><br>&#x6570;&#x7EC4;&#x7684;map&#x548C;filter&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;Set<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span>&#xA0;<span class="keyword">set</span>&#xA0;=&#xA0;new&#xA0;Set([1,2,3])</span><br><span class="line">console.log([...<span class="keyword">set</span>])&#xA0;//&#xA0; [1,&#xA0;2,&#xA0;3]</span><br><span class="line"><span class="keyword">set</span>&#xA0;=&#xA0;new&#xA0;Set([...<span class="keyword">set</span>].map(x=&gt;x*2))</span><br><span class="line">console.log(<span class="keyword">set</span>)&#xA0;//&#xA0;Set:{<span class="number">2</span>,&#xA0;<span class="number">4</span>,&#xA0;<span class="number">6</span>}</span><br></pre></td></tr></tbody></table></figure>
+filter&#x9002;&#x5408;&#x5E94;&#x7528;&#x4E8E;&#x6C42;&#x4EA4;&#x96C6;&#x3001;&#x5E76;&#x96C6;&#x3001;&#x5DEE;&#x96C6;<h3 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h3>WeakSet&#x4E5F;&#x662F;&#x4E0D;&#x91CD;&#x590D;&#x503C;&#x7684;&#x96C6;&#x5408;&#xFF0C;&#x4F46;&#x662F;&#x4E0E;Set&#x6709;&#x4E24;&#x4E2A;&#x533A;&#x522B;</li>
+</ul>
+<ol class="ui list">
+<li>WeakSet&#x7684;&#x6210;&#x5458;&#x53EA;&#x80FD;&#x662F;&#x5BF9;&#x8C61;</li>
+<li>WeakSet&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x662F;&#x5F31;&#x5F15;&#x7528;&#xFF08;&#x5373;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#x4E0D;&#x7BA1;WeakSet&#x8FD8;&#x7528;&#x4E0D;&#x7528;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x53EA;&#x8981;&#x5176;&#x4ED6;&#x5BF9;&#x8C61;&#x4E0D;&#x5F15;&#x7528;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x8BE5;&#x5BF9;&#x8C61;&#x5C31;&#x88AB;&#x56DE;&#x6536;&#x4E86;&#xFF09;<br>WeakSet&#x4E0D;&#x5B58;&#x5728;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x4EE5;&#x9002;&#x5408;&#x4E34;&#x65F6;&#x5B58;&#x653E;&#x4E00;&#x7EC4;&#x5BF9;&#x8C61;<br>ES6&#x89C4;&#x5B9A;WeakSet&#x4E0D;&#x53EF;&#x904D;&#x5386;&#x3002;  </li>
+</ol>
+<p>WeakSet&#x6709;add,delete,has&#x65B9;&#x6CD5;, &#x4F46;&#x662F;&#x6CA1;&#x6709;size&#x5C5E;&#x6027;&#x548C;forEach&#x65B9;&#x6CD5;</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>JS&#x7684;&#x5BF9;&#x8C61;&#xFF08;Object&#xFF09;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x96C6;&#x5408;&#xFF08;hash&#x7ED3;&#x6784;&#xFF09;&#xFF0C;&#x4F46;&#x662F;&#x53EA;&#x80FD;&#x7528;&#x5B57;&#x7B26;&#x4F5C;&#x4E3A;&#x952E;&#x3002;<br>&#x4E3A;&#x4E86;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;ES6&#x63D0;&#x4F9B;&#x4E86;Map&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;</p>
+<h4 id="&#x542B;&#x4E49;"><a href="#&#x542B;&#x4E49;" class="headerlink" title="&#x542B;&#x4E49;"></a>&#x542B;&#x4E49;</h4><p>Map&#x7C7B;&#x4F3C;&#x4E8E;&#x5BF9;&#x8C61;&#xFF0C;&#x4E5F;&#x662F;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x96C6;&#x5408;&#xFF0C;&#x4F46;&#x662F;&#x952E;&#x7684;&#x7C7B;&#x578B;&#x53EF;&#x4EE5;&#x662F;&#x5404;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x3002;Map&#x6BD4;Object&#x66F4;&#x9002;&#x5408;&#x201C;&#x952E;&#x503C;&#x5BF9;&#x201D;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;</p>
+<h4 id="&#x7B80;&#x5355;&#x5E94;&#x7528;"><a href="#&#x7B80;&#x5355;&#x5E94;&#x7528;" class="headerlink" title="&#x7B80;&#x5355;&#x5E94;&#x7528;"></a>&#x7B80;&#x5355;&#x5E94;&#x7528;</h4><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;m&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>()</span><br><span class="line"><span class="keyword">const</span>&#xA0;o&#xA0;=&#xA0;{<span class="attr">p</span>:<span class="string">&quot;hello,world&quot;</span>}</span><br><span class="line">m.set(o,<span class="string">&apos;content&apos;</span>)</span><br><span class="line">m.get(o)&#xA0;<span class="comment">//&#xA0;content</span></span><br><span class="line">m.has(o)&#xA0;<span class="comment">//&#xA0;true</span></span><br><span class="line">m.delete(o)&#xA0;<span class="comment">//&#xA0;true</span></span><br><span class="line">m.has(o)&#xA0;<span class="comment">//&#xA0;false</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Map&#x4E5F;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x4F5C;&#x4E3A;&#x53C2;&#x6570;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;map&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>([[<span class="string">&apos;name&apos;</span>,<span class="string">&apos;John&apos;</span>],[<span class="string">&apos;title&apos;</span>,<span class="string">&apos;Author&apos;</span>]])</span><br><span class="line">map.size&#xA0;<span class="comment">//&#xA0;2</span></span><br><span class="line">map.has(<span class="string">&apos;name&apos;</span>)&#xA0;<span class="comment">//&#xA0;true</span></span><br><span class="line">map.get(<span class="string">&apos;name&apos;</span>)&#xA0;<span class="comment">//&#xA0;John</span></span><br><span class="line">map.has(<span class="string">&apos;title&apos;</span>)&#xA0;<span class="comment">//&#xA0;true</span></span><br><span class="line">map.get(<span class="string">&apos;title&apos;</span>)&#xA0;<span class="comment">//&#xA0;Author</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x9519;&#x8BEF;&#x793A;&#x8303;&#xFF0C;&#x5916;&#x5C42;&#x6570;&#x7EC4;&#x6F0F;&#x52A0;[]</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;map&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>([<span class="string">&apos;name&apos;</span>,<span class="string">&apos;John&apos;</span>],[<span class="string">&apos;title&apos;</span>,<span class="string">&apos;Author&apos;</span>])</span><br><span class="line">map.get(<span class="string">&apos;name&apos;</span>)&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;Iterator&#xA0;value&#xA0;name&#xA0;is&#xA0;not&#xA0;an&#xA0;entry&#xA0;object</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x9664;&#x4E86;&#x6570;&#x7EC4;&#xFF0C;&#x4EFB;&#x4F55;&#x5177;&#x6709;Iterator&#x63A5;&#x53E3;&#x4E14;&#x6BCF;&#x4E2A;&#x6210;&#x5458;&#x90FD;&#x662F;&#x4E00;&#x4E2A;&#x53CC;&#x5143;&#x7D20;&#x6570;&#x7EC4;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x90FD;&#x53EF;&#x4EE5;&#x5F53;&#x4F5C;Map&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x3002;&#x5373;Set&#x548C;Map&#x4E5F;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;Map&#x6784;&#x9020;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">set</span> = new Set([[&apos;foo&apos;, 1], [&apos;bar&apos;, 2]])</span><br><span class="line">const m1 = new Map(<span class="keyword">set</span>)</span><br><span class="line">m1.<span class="keyword">get</span>(&apos;foo&apos;) // 1</span><br><span class="line"></span><br><span class="line">const m2 = new Map([[&apos;baz&apos;, 3]])</span><br><span class="line">const m3 = new Map(m2)</span><br><span class="line">m3.<span class="keyword">get</span>(&apos;baz&apos;) // 3</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x5BF9;&#x540C;&#x4E00;&#x4E2A;&#x952E;&#x591A;&#x6B21;&#x8D4B;&#x503C;&#xFF0C;&#x540E;&#x9762;&#x7684;&#x503C;&#x4F1A;&#x8986;&#x76D6;&#x524D;&#x9762;&#x7684;&#x503C;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">map.set(<span class="number">1</span>, <span class="string">&apos;aaa&apos;</span>)</span><br><span class="line">map.set(<span class="number">1</span>, <span class="string">&apos;bbb&apos;</span>)</span><br><span class="line">map.get(<span class="number">1</span>) <span class="comment">// &apos;bbb&apos;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x8BFB;&#x53D6;&#x4E00;&#x4E2A;&#x672A;&#x77E5;&#x7684;&#x952E;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;undefined</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Map</span>().get(<span class="string">&apos;aaa&apos;</span>) <span class="comment">// undefined</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x6CE8;&#x610F;&#xFF0C;&#x53EA;&#x6709;&#x5BF9;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF0C;Map&#x7ED3;&#x6784;&#x624D;&#x5C06;&#x5176;&#x89C6;&#x4E3A;&#x540C;&#x4E00;&#x4E2A;&#x952E;</strong></p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">map.set([<span class="string">&apos;a&apos;</span>], <span class="number">555</span>)</span><br><span class="line">map.get([<span class="string">&apos;a&apos;</span>]) <span class="comment">// undefined</span></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;map&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>()</span><br><span class="line"><span class="keyword">let</span>&#xA0;a&#xA0;=&#xA0;[<span class="string">&apos;a&apos;</span>]</span><br><span class="line">map.set(a,<span class="number">666</span>)</span><br><span class="line"><span class="built_in">console</span>.log(map.get(a)) <span class="comment">// 666</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x540C;&#x7406;&#xFF0C;&#x540C;&#x6837;&#x7684;&#x503C;&#x7684;&#x4E24;&#x4E2A;&#x5B9E;&#x4F8B;&#x5728;Map&#x7ED3;&#x6784;&#x4E2D;&#x4E5F;&#x88AB;&#x89C6;&#x4E3A;&#x4E24;&#x4E2A;&#x952E;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line"><span class="keyword">const</span> k1 = [<span class="string">&apos;a&apos;</span>]</span><br><span class="line"><span class="keyword">const</span> k2 = [<span class="string">&apos;a&apos;</span>]</span><br><span class="line">map.set(k1, <span class="number">111</span>).set(k2, <span class="number">222</span>)</span><br><span class="line">map.get(k1) <span class="comment">// 111</span></span><br><span class="line">map.get(k2) <span class="comment">// 222</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7531;&#x6B64;&#x53EF;&#x77E5;&#xFF0C;Map&#x7684;&#x952E;&#x662F;&#x548C;&#x5185;&#x5B58;&#x5730;&#x5740;&#x7ED1;&#x5B9A;&#x7684;&#x3002;<br>&#x5982;&#x679C;Map&#x7684;&#x952E;&#x662F;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF08;&#x6570;&#x5B57;&#x3001;&#x5B57;&#x7B26;&#x4E32;&#x3001;&#x5E03;&#x5C14;&#x503C;&#xFF09;&#xFF0C;&#x53EA;&#x8981;&#x4E24;&#x4E2A;&#x503C;&#x4E25;&#x683C;&#x76F8;&#x7B49;&#xFF08;&#x5305;&#x62EC;-0&#x548C;+0&#xFF09;&#x5219;&#x4E3A;&#x4E00;&#x4E2A;&#x952E;&#x3002;NaN&#x867D;&#x7136;&#x4E0D;&#x4E25;&#x683C;&#x76F8;&#x7B49;&#xFF0C;&#x4F46;&#x662F;Map&#x4F1A;&#x628A;&#x5B83;&#x89C6;&#x4E3A;&#x4E00;&#x4E2A;&#x952E;&#x3002;</p>
+<h4 id="&#x5C5E;&#x6027;"><a href="#&#x5C5E;&#x6027;" class="headerlink" title="&#x5C5E;&#x6027;"></a>&#x5C5E;&#x6027;</h4><p>size&#xFF1A;&#x8FD4;&#x56DE;Map&#x7ED3;&#x6784;&#x7684;&#x6210;&#x5458;&#x603B;&#x6570;</p>
+<h4 id="&#x65B9;&#x6CD5;"><a href="#&#x65B9;&#x6CD5;" class="headerlink" title="&#x65B9;&#x6CD5;"></a>&#x65B9;&#x6CD5;</h4><ul class="ui list">
+<li>set(key, value): &#x8BBE;&#x7F6E;key&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x952E;&#x503C;&#xFF0C;&#x7136;&#x540E;&#x8FD4;&#x56DE;&#x6574;&#x4E2A;Map&#x7ED3;&#x6784;&#x3002;<br>set&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x5F53;&#x524D;&#x7684;Map&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x94FE;&#x5F0F;&#x5199;&#x6CD5;&#x3002;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">map.set(<span class="number">1</span>, <span class="string">&apos;a&apos;</span>).set(<span class="number">2</span>, <span class="string">&apos;b&apos;</span>).set(<span class="number">3</span>, <span class="string">&apos;c&apos;</span>)</span><br></pre></td></tr></tbody></table></figure></li>
+<li>get(key): &#x8BFB;&#x53D6;key&#x5BF9;&#x5E94;&#x7684;&#x952E;&#x503C;&#xFF0C;&#x5982;&#x679C;&#x627E;&#x4E0D;&#x5230;key&#x5C31;&#x4F1A;&#x8FD4;&#x56DE;undefined</li>
+<li>has(key): &#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5E03;&#x5C14;&#x503C;&#xFF0C;&#x8868;&#x793A;&#x67D0;&#x4E2A;&#x952E;&#x662F;&#x5426;&#x5728;Map&#x6570;&#x636E;&#x7ED3;&#x6784;&#x4E2D;&#x5B58;&#x5728;&#x3002;</li>
+<li>delete&#xFF1A;&#x5220;&#x9664;&#x67D0;&#x4E2A;&#x952E;&#xFF0C;&#x8FD4;&#x56DE;true&#xFF0C;&#x5982;&#x679C;&#x5220;&#x9664;&#x5931;&#x8D25;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;false&#x3002;</li>
+<li>clear(): &#x6E05;&#x9664;&#x6240;&#x6709;&#x6210;&#x5458;&#xFF0C;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x3002;</li>
+</ul>
+<h4 id="&#x904D;&#x5386;&#x65B9;&#x6CD5;"><a href="#&#x904D;&#x5386;&#x65B9;&#x6CD5;" class="headerlink" title="&#x904D;&#x5386;&#x65B9;&#x6CD5;"></a>&#x904D;&#x5386;&#x65B9;&#x6CD5;</h4><p>Map&#x539F;&#x751F;&#x63D0;&#x4F9B;&#x4E86;3&#x4E2A;&#x904D;&#x5386;&#x5668;&#x751F;&#x6210;&#x51FD;&#x6570;&#x548C;1&#x4E2A;&#x904D;&#x5386;&#x65B9;&#x6CD5;&#x3002;</p>
+<ul class="ui list">
+<li>keys(): &#x8FD4;&#x56DE;&#x952E;&#x540D;&#x7684;&#x904D;&#x5386;&#x5668;</li>
+<li>values(): &#x8FD4;&#x56DE;&#x952E;&#x503C;&#x7684;&#x904D;&#x5386;&#x5668;</li>
+<li>entries(): &#x8FD4;&#x56DE;&#x6240;&#x6709;&#x6210;&#x5458;&#x7684;&#x904D;&#x5386;&#x5668;</li>
+<li>forEach(): &#x904D;&#x5386;Map&#x7684;&#x6240;&#x6709;&#x6210;&#x5458;&#x3002;</li>
+</ul>
+<p><strong>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;Map&#x7684;&#x904D;&#x5386;&#x987A;&#x5E8F;&#x5C31;&#x662F;&#x63D2;&#x5165;&#x6392;&#x5E8F;&#xFF0C;&#x8DDF;Set&#x4E00;&#x6837;</strong><br>Map&#x7ED3;&#x6784;&#x9ED8;&#x8BA4;&#x7684;&#x904D;&#x5386;&#x5668;&#x63A5;&#x53E3;&#x662F;entries&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;for&#x2026;of&#x4EE3;&#x66FF;entries&#x65B9;&#x6CD5;&#x3002;<br>Map&#x7ED3;&#x6784;&#x8F6C;&#x4E3A;&#x6570;&#x7EC4;&#x7ED3;&#x6784;&#x7684;&#x6BD4;&#x8F83;&#x5FEB;&#x901F;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x7ED3;&#x5408;&#x6269;&#x5C55;&#x8FD0;&#x7B97;&#x7B26;&#xFF08;&#x2026;&#xFF09;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;map&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>([[<span class="string">&apos;aaa&apos;</span>,<span class="number">111</span>],[<span class="string">&apos;bbb&apos;</span>,<span class="number">222</span>],[<span class="string">&apos;ccc&apos;</span>,&#xA0;<span class="number">3</span>]]);</span><br><span class="line">[...map.keys()];&#xA0;<span class="comment">//&#xA0;[&#xA0;&apos;aaa&apos;,&#xA0;&apos;bbb&apos;,&#xA0;&apos;ccc&apos;&#xA0;]</span></span><br><span class="line">[...map.values()];&#xA0;<span class="comment">//&#xA0;[&#xA0;111,&#xA0;222,&#xA0;3&#xA0;]</span></span><br><span class="line">[...map.entries()];&#xA0;<span class="comment">//&#xA0;[&#xA0;[&#xA0;&apos;aaa&apos;,&#xA0;111&#xA0;],&#xA0;[&#xA0;&apos;bbb&apos;,&#xA0;222&#xA0;],&#xA0;[&#xA0;&apos;ccc&apos;,&#xA0;3&#xA0;]&#xA0;]</span></span><br><span class="line">[map.values()]&#xA0;<span class="comment">//&#xA0;[&#xA0;[Map&#xA0;Iterator]&#xA0;{&#xA0;111,&#xA0;222,&#xA0;3&#xA0;}&#xA0;]</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x7ED3;&#x5408;&#x6570;&#x7EC4;&#x7684;map&#x65B9;&#x6CD5;&#x3001;filter&#x65B9;&#x6CD5;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;Map&#x7684;&#x904D;&#x5386;&#x548C;&#x8FC7;&#x6EE4;&#xFF08;Map&#x672C;&#x8EAB;&#x4E48;&#x6709;map&#x548C;filter&#x65B9;&#x6CD5;&#xFF09;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;map&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>([[<span class="string">&apos;aaa&apos;</span>,<span class="number">111</span>],[<span class="string">&apos;bbb&apos;</span>,<span class="number">222</span>],[<span class="string">&apos;ccc&apos;</span>,&#xA0;<span class="number">3</span>]]);</span><br><span class="line"><span class="keyword">const</span>&#xA0;map1&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>(</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;[...map].filter(<span class="function">(<span class="params">[k,v]</span>)=&gt;</span>&#xA0;v&gt;<span class="number">3</span>)</span><br><span class="line">)</span><br><span class="line"><span class="built_in">console</span>.log(map1)&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;Map&#xA0;{&#xA0;&apos;aaa&apos;&#xA0;=&gt;&#xA0;111,&#xA0;&apos;bbb&apos;&#xA0;=&gt;&#xA0;222&#xA0;}</span></span><br><span class="line"><span class="keyword">const</span>&#xA0;map2&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>(</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;[...map].map(<span class="function">(<span class="params">[k,v]</span>)=&gt;</span>[k+<span class="string">&apos;hhh&apos;</span>,v*<span class="number">2</span>])</span><br><span class="line">)</span><br><span class="line"><span class="built_in">console</span>.log(map2)&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;Map&#xA0;{&#xA0;&apos;aaahhh&apos;&#xA0;=&gt;&#xA0;222,&#xA0;&apos;bbbhhh&apos;&#xA0;=&gt;&#xA0;444,&#xA0;&apos;ccchhh&apos;&#xA0;=&gt;&#xA0;6&#xA0;}</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="&#x4E0E;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x76F8;&#x4E92;&#x8F6C;&#x6362;"><a href="#&#x4E0E;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x76F8;&#x4E92;&#x8F6C;&#x6362;" class="headerlink" title="&#x4E0E;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x76F8;&#x4E92;&#x8F6C;&#x6362;"></a>&#x4E0E;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x76F8;&#x4E92;&#x8F6C;&#x6362;</h4><p><strong>Map&#x8F6C;&#x4E3A;&#x6570;&#x7EC4;</strong><br>Map&#x8F6C;&#x4E3A;&#x6570;&#x7EC4;&#x6700;&#x65B9;&#x4FBF;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x4F7F;&#x7528;&#x6269;&#x5C55;&#x8FD0;&#x7B97;&#x7B26;&#xFF08;&#x2026;&#xFF09;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;myMap&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>()</span><br><span class="line">.set(<span class="literal">true</span>,<span class="number">7</span>)</span><br><span class="line">.set({<span class="attr">foo</span>:<span class="number">0</span>},[<span class="string">&apos;abc&apos;</span>])</span><br><span class="line"><span class="built_in">console</span>.log([...myMap])&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;[&#xA0;[&#xA0;true,&#xA0;7&#xA0;],&#xA0;[&#xA0;{&#xA0;foo:&#xA0;0&#xA0;},&#xA0;[&#xA0;&apos;abc&apos;&#xA0;]&#xA0;]&#xA0;]</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x6570;&#x7EC4;&#x8F6C;&#x4E3A;Map</strong><br>&#x5C06;&#x6570;&#x7EC4;&#x4F20;&#x5165;Map&#x6784;&#x9020;&#x51FD;&#x6570;&#x5C31;&#x53EF;&#x4EE5;&#x8F6C;&#x4E3A;Map&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>&#xA0;map&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>([</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;[<span class="literal">true</span>,<span class="number">0</span>],</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;[{<span class="attr">foo</span>:<span class="number">1</span>},[<span class="string">&apos;abs&apos;</span>]]</span><br><span class="line">])</span><br><span class="line"><span class="built_in">console</span>.log(map)&#xA0;<span class="comment">//&#xA0;Map&#xA0;{&#xA0;true&#xA0;=&gt;&#xA0;0,&#xA0;{&#xA0;foo:&#xA0;1&#xA0;}&#xA0;=&gt;&#xA0;[&#xA0;&apos;abs&apos;&#xA0;]&#xA0;}</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>Map&#x8F6C;&#x4E3A;&#x5BF9;&#x8C61;</strong><br>&#x5982;&#x679C;Map&#x7684;&#x6240;&#x6709;&#x952E;&#x90FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x8F6C;&#x4E3A;&#x5BF9;&#x8C61;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">strMapToObj</span>(<span class="params">strMap</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">let</span>&#xA0;obj&#xA0;=&#xA0;<span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">for</span>(<span class="keyword">let</span>&#xA0;[k,v]&#xA0;<span class="keyword">of</span>&#xA0;strMap){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;obj[k]&#xA0;=&#xA0;v</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;obj</span><br><span class="line">}</span><br><span class="line"><span class="keyword">const</span>&#xA0;myMap&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>().set(<span class="string">&apos;yes&apos;</span>,&#xA0;<span class="literal">true</span>).set(<span class="string">&apos;no&apos;</span>,&#xA0;<span class="literal">false</span>)</span><br><span class="line"><span class="built_in">console</span>.log(strMapToObj(myMap))&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;[Object:&#xA0;null&#xA0;prototype]&#xA0;{&#xA0;yes:&#xA0;true,&#xA0;no:&#xA0;false&#xA0;}</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>&#x5BF9;&#x8C61;&#x8F6C;&#x4E3A;Map</strong></p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">strObjToMap</span>(<span class="params">obj</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">let</span>&#xA0;strMap&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>()</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">for</span>(<span class="keyword">let</span>&#xA0;k&#xA0;<span class="keyword">of</span>&#xA0;<span class="built_in">Object</span>.keys(obj)){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;strMap.set(k,obj[k])</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;strMap</span><br><span class="line">}</span><br><span class="line"><span class="keyword">const</span>&#xA0;myObj&#xA0;=&#xA0;{<span class="string">&apos;yes&apos;</span>:<span class="literal">true</span>,<span class="string">&apos;no&apos;</span>:<span class="literal">false</span>}</span><br><span class="line"><span class="built_in">console</span>.log(strObjToMap(myObj))&#xA0;<span class="comment">//&#xA0;Map&#xA0;{&#xA0;&apos;yes&apos;&#xA0;=&gt;&#xA0;true,&#xA0;&apos;no&apos;&#xA0;=&gt;&#xA0;false&#xA0;}</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>Map&#x8F6C;&#x4E3A;JSON</strong><br>Map&#x8F6C;&#x4E3A;JSON&#x6709;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#xFF1A;</p>
+<ul class="ui list">
+<li>Map&#x7684;&#x952E;&#x540D;&#x90FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8FD9;&#x65F6;&#x53EF;&#x4EE5;&#x8F6C;&#x4E3A;JSON&#x5BF9;&#x8C61;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">strMapToObj</span>(<span class="params">strMap</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">let</span>&#xA0;obj&#xA0;=&#xA0;<span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">for</span>(<span class="keyword">let</span>&#xA0;[k,v]&#xA0;<span class="keyword">of</span>&#xA0;strMap){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;obj[k]&#xA0;=&#xA0;v</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;obj</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">strMapToJson</span>(<span class="params">strMap</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;<span class="built_in">JSON</span>.stringify(strMapToObj(strMap))</span><br><span class="line">}</span><br><span class="line"><span class="keyword">const</span>&#xA0;myMap&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>().set(<span class="string">&apos;yes&apos;</span>,<span class="literal">true</span>).set(<span class="string">&apos;no&apos;</span>,<span class="literal">false</span>)</span><br><span class="line"><span class="built_in">console</span>.log(strMapToJson(myMap))&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;{&quot;yes&quot;:true,&quot;no&quot;:false}</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Map&#x7684;&#x952E;&#x540D;&#x975E;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x8F6C;&#x4E3A;&#x6570;&#x7EC4;JSON<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">strMapToArrayJson</span>(<span class="params">strMap</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;<span class="built_in">JSON</span>.stringify([...strMap])</span><br><span class="line">}</span><br><span class="line"><span class="keyword">const</span>&#xA0;myMap&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>().set(<span class="literal">true</span>,<span class="number">7</span>).set({<span class="attr">foo</span>:<span class="number">3</span>},[<span class="string">&apos;abc&apos;</span>])</span><br><span class="line"><span class="built_in">console</span>.log(strMapToArrayJson(myMap))&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;[[true,7],[{&quot;foo&quot;:3},[&quot;abc&quot;]]]</span></span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+</ul>
+<p><strong>JSON&#x8F6C;&#x4E3A;Map</strong><br>&#x4E5F;&#x5206;&#x4E3A;&#x4E24;&#x79CD;&#x60C5;&#x51B5;</p>
+<ul class="ui list">
+<li>&#x6240;&#x6709;&#x952E;&#x540D;&#x90FD;&#x662F;&#x5B57;&#x7B26;&#x4E32;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">strObjToMap</span>(<span class="params">obj</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">let</span>&#xA0;strMap&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>()</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">for</span>(<span class="keyword">let</span>&#xA0;k&#xA0;<span class="keyword">of</span>&#xA0;<span class="built_in">Object</span>.keys(obj)){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;strMap.set(k,obj[k])</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;strMap</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">jsonToStrMap</span>(<span class="params">jsonStr</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;strObjToMap(<span class="built_in">JSON</span>.parse(jsonStr))</span><br><span class="line">}</span><br><span class="line"><span class="built_in">console</span>.log(jsonToStrMap(<span class="string">&apos;{&quot;yes&quot;:true,&quot;no&quot;:false}&apos;</span>))</span><br><span class="line"><span class="comment">//&#xA0;Map&#xA0;{&#xA0;&apos;yes&apos;&#xA0;=&gt;&#xA0;true,&#xA0;&apos;no&apos;&#xA0;=&gt;&#xA0;false&#xA0;}</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>JSON&#x672C;&#x8EAB;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#xFF0C;&#x4E14;&#x6570;&#x7EC4;&#x6210;&#x5458;&#x672C;&#x8EAB;&#x53C8;&#x662F;&#x5177;&#x6709;&#x4E24;&#x4E2A;&#x6210;&#x5458;&#x7684;&#x6570;&#x7EC4;&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x8F6C;&#x4E3A;Map&#x3002;<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">jsonToMap</span>(<span class="params">jsonStr</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Map</span>(<span class="built_in">JSON</span>.parse(jsonStr))</span><br><span class="line">}</span><br><span class="line"><span class="keyword">const</span>&#xA0;myJson&#xA0;=&#xA0;<span class="string">&apos;[[true,7],[{&quot;foo&quot;:3},[&quot;abc&quot;]]]&apos;</span></span><br><span class="line"><span class="built_in">console</span>.log(jsonToMap(myJson))&#xA0;</span><br><span class="line"><span class="comment">//&#xA0;Map&#xA0;{&#xA0;true&#xA0;=&gt;&#xA0;7,&#xA0;{&#xA0;foo:&#xA0;3&#xA0;}&#xA0;=&gt;&#xA0;[&#xA0;&apos;abc&apos;&#xA0;]&#xA0;}</span></span><br></pre></td></tr></tbody></table></figure>
+&#x6CE8;&#x610F;JSON&#x952E;&#x540D;&#x4E0D;&#x8981;&#x7528;&#x2019;&#xFF0C;&#x4E0D;&#x7136;&#x62A5;&#x9519;SyntaxError: Unexpected token &#x2018; in JSON</li>
+</ul>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>WeakMap&#x7ED3;&#x6784;&#x4E0E;Map&#x7ED3;&#x6784;&#x7C7B;&#x4F3C;&#xFF0C;&#x4E5F;&#x7528;&#x4E8E;&#x751F;&#x6210;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x96C6;&#x5408;&#x3002;<br>&#x4F46;&#x662F;&#x8DDF;Map&#x6709;&#x4E24;&#x70B9;&#x533A;&#x522B;</p>
+<ol class="ui list">
+<li>WeakMap&#x53EA;&#x80FD;&#x63A5;&#x53D7;&#x5BF9;&#x8C61;&#x4F5C;&#x4E3A;&#x952E;&#x540D;&#xFF08;null&#x9664;&#x5916;&#xFF09;</li>
+<li>WeakMap&#x7684;&#x952E;&#x540D;&#x6240;&#x6307;&#x5411;&#x7684;&#x5BF9;&#x8C61;&#x4E0D;&#x8BA1;&#x5165;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#x3002;</li>
+</ol>
+<p>&#x57FA;&#x672C;&#x4E0A;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x5411;&#x5BF9;&#x8C61;&#x4E2D;&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x53C8;&#x4E0D;&#x60F3;&#x5E72;&#x6270;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;WeakMap&#xFF0C;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x5E94;&#x7528;&#x573A;&#x666F;&#x662F;&#xFF0C;&#x5728;&#x7F51;&#x9875;&#x7684;Dom&#x5143;&#x7D20;&#x4E0A;&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x65F6;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;weakmap&#x7ED3;&#x6784;&#x3002;<br><strong>&#x6CE8;&#x610F;&#xFF0C;WeakMap&#x5F31;&#x5F15;&#x7528;&#x7684;&#x53EA;&#x662F;&#x952E;&#x540D;&#x800C;&#x4E0D;&#x662F;&#x952E;&#x503C;&#xFF0C;&#x952E;&#x503C;&#x4F9D;&#x7136;&#x662F;&#x6B63;&#x5E38;&#x5F15;&#x7528;&#x7684;</strong><br>weakmap&#x6CA1;&#x6709;key()&#x3001;values()&#x3001;entries()&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x6CA1;&#x6709;size&#x5C5E;&#x6027;&#xFF1B;&#x53EA;&#x6709;set()&#x3001;get()&#x3001;delete()&#x548C;has()&#x65B9;&#x6CD5;&#x3002;</p>
+</body></html>
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2020-02-18T15:13:39.004Z" itemprop="datePublished">2020-02-18</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a class="ui tiny button disabled"><i class="angle left icon"></i>Previous</a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2020/02/03/blog3/" class="ui tiny button">
+                    
+                    微信小程序开发中遇到的坑
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#Set"><span>Set</span></a><ol><li><a href="#基本用法"><span>基本用法</span></a></li><li><a href="#Set实例属性和方法"><span>Set实例属性和方法</span></a></li><li><a href="#遍历操作"><span>遍历操作</span></a></li></ol></li><li><a href="#WeakSet"><span>WeakSet</span></a></li><li><a href="#Map"><span>Map</span></a><ol><li><a href="#含义"><span>含义</span></a></li><li><a href="#简单应用"><span>简单应用</span></a></li><li><a href="#属性"><span>属性</span></a></li><li><a href="#方法"><span>方法</span></a></li><li><a href="#遍历方法"><span>遍历方法</span></a></li><li><a href="#与其他数据结构的相互转换"><span>与其他数据结构的相互转换</span></a></li></ol></li><li><a href="#WeakMap"><span>WeakMap</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2020 <a href="/">Leni</a>,
+        <a href="https://github.com/leniNikky" target="_blank">my github</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
+</body>
+</html>
