@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <title>JS基本类型和引用类型的值 | Coding with cooker&#39; soul</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="ECMAScript&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x811A;&amp;#x672C;&amp;#x8BED;&amp;#x8A00;&amp;#x89C4;&amp;#x8303;&amp;#x3002;JavaScript &amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x57FA;&amp;#x4E8E; ECMAScript &amp;#x89C4;&amp;#x8303;&amp;#x7684;&amp;#x811A;&amp;#x672C;&amp;#x8BED">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS基本类型和引用类型的值">
+<meta property="og:url" content="http://yoursite.com/2020/02/25/blog6/index.html">
+<meta property="og:site_name" content="Coding with cooker&#39; soul">
+<meta property="og:description" content="ECMAScript&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x811A;&amp;#x672C;&amp;#x8BED;&amp;#x8A00;&amp;#x89C4;&amp;#x8303;&amp;#x3002;JavaScript &amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x57FA;&amp;#x4E8E; ECMAScript &amp;#x89C4;&amp;#x8303;&amp;#x7684;&amp;#x811A;&amp;#x672C;&amp;#x8BED">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-25T15:38:17.336Z">
+<meta property="article:modified_time" content="2020-02-25T15:54:43.283Z">
+<meta property="article:author" content="Leni">
+<meta name="twitter:card" content="summary">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "Leni",
+  "url": "http://yoursite.com"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>Coding with cooker&#39; soul</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">Leni</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-blog6" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    JS基本类型和引用类型的值
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <html><head></head><body><p>ECMAScript&#x662F;&#x4E00;&#x79CD;&#x811A;&#x672C;&#x8BED;&#x8A00;&#x89C4;&#x8303;&#x3002;<br>JavaScript &#x662F;&#x4E00;&#x79CD;&#x57FA;&#x4E8E; ECMAScript &#x89C4;&#x8303;&#x7684;&#x811A;&#x672C;&#x8BED;&#x8A00;&#x3002;</p>
+<h3 id="&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;"><a href="#&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;" class="headerlink" title="&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;"></a>&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x548C;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;</h3><p>ECMAScript&#x53D8;&#x91CF;&#x5305;&#x542B;&#x4E24;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x5206;&#x522B;&#x662F;&#xFF1A;</p>
+<ol class="ui list">
+<li>&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x503C;&#xFF1A;&#x7B80;&#x5355;&#x7684;&#x6570;&#x636E;&#x6BB5;&#x3002;&#xFF08;&#x4E94;&#x79CD;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1A;Undefined&#xFF0C;Null&#xFF0C; String&#xFF0C;Number&#xFF0C;Boolean&#xFF09;</li>
+<li>&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x503C;&#xFF1A;&#x53EF;&#x80FD;&#x7531;&#x591A;&#x4E2A;&#x503C;&#x6784;&#x6210;&#x7684;&#x5BF9;&#x8C61;&#x3002;<br>&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x662F;&#x4FDD;&#x5B58;&#x5728;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#xFF0C;<strong>js&#x4E0D;&#x5141;&#x8BB8;&#x76F4;&#x63A5;&#x64CD;&#x4F5C;&#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;</strong>&#xFF0C;&#x5728;&#x64CD;&#x4F5C;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x662F;&#x5728;&#x64CD;&#x4F5C;&#x5BF9;&#x8C61;&#x7684;&#x5E94;&#x7528;&#x800C;&#x4E0D;&#x662F;&#x5B9E;&#x9645;&#x7684;&#x5BF9;&#x8C61;&#x3002;</li>
+</ol>
+<h4 id="&#x52A8;&#x6001;&#x7684;&#x5C5E;&#x6027;"><a href="#&#x52A8;&#x6001;&#x7684;&#x5C5E;&#x6027;" class="headerlink" title="&#x52A8;&#x6001;&#x7684;&#x5C5E;&#x6027;"></a>&#x52A8;&#x6001;&#x7684;&#x5C5E;&#x6027;</h4><p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7ED9;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;&#x5C5E;&#x6027;&#x548C;&#x5C5E;&#x6027;&#x503C;&#xFF0C;&#x4F46;&#x662F;&#x4E0D;&#x80FD;&#x7ED9;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x7684;&#x503C;&#x6DFB;&#x52A0;&#x5C5E;&#x6027;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span>&#xA0;person&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Object</span>()</span><br><span class="line">person.name&#xA0;=&#xA0;<span class="string">&apos;leni&apos;</span></span><br><span class="line"><span class="built_in">console</span>.log(person.name) <span class="comment">// leni</span></span><br><span class="line"><span class="keyword">var</span>&#xA0;name&#xA0;=&#xA0;<span class="string">&apos;Nikku&apos;</span></span><br><span class="line">name.age&#xA0;=&#xA0;<span class="number">18</span></span><br><span class="line"><span class="built_in">console</span>.log(name.age) <span class="comment">// undefined</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="&#x590D;&#x5236;&#x53D8;&#x91CF;&#x503C;"><a href="#&#x590D;&#x5236;&#x53D8;&#x91CF;&#x503C;" class="headerlink" title="&#x590D;&#x5236;&#x53D8;&#x91CF;&#x503C;"></a>&#x590D;&#x5236;&#x53D8;&#x91CF;&#x503C;</h4><p>&#x590D;&#x5236;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x503C;&#xFF0C;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#x662F;&#x76F8;&#x4E92;&#x72EC;&#x7ACB;&#x800C;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x7684;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var num1 = 5</span><br><span class="line">var num2 = num1</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x590D;&#x5236;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x7684;&#x503C;&#xFF0C;&#x590D;&#x5236;&#x5F97;&#x5230;&#x7684;&#x503C;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;<strong>&#x6307;&#x9488;</strong>&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;&#x6307;&#x9488;&#x6307;&#x5411;&#x5B58;&#x50A8;&#x5728;&#x5806;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#x5B9E;&#x9645;&#x4E0A;&#x5F15;&#x7528;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;&#x82E5;&#x6539;&#x53D8;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x4E5F;&#x4F1A;&#x53D8;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span>&#xA0;obj1&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Object</span>()</span><br><span class="line"><span class="keyword">var</span>&#xA0;obj2&#xA0;=&#xA0;obj1</span><br><span class="line">obj1.name&#xA0;=&#xA0;<span class="string">&apos;leni&apos;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj2.name)&#xA0;<span class="comment">//&#xA0;leni</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="&#x4F20;&#x9012;&#x53C2;&#x6570;"><a href="#&#x4F20;&#x9012;&#x53C2;&#x6570;" class="headerlink" title="&#x4F20;&#x9012;&#x53C2;&#x6570;"></a>&#x4F20;&#x9012;&#x53C2;&#x6570;</h4><p>ECMAScript&#x4E2D;&#x6240;&#x6709;&#x51FD;&#x6570;&#x7684;&#x53C2;&#x6570;&#x90FD;&#x662F;&#x6309;&#x503C;&#x4F20;&#x9012;&#x7684;&#x3002;&#x5C31;&#x5982;&#x540C;&#x4E0A;&#x9762;&#x628A;&#x503C;&#x4ECE;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;<strong>&#x590D;&#x5236;</strong>&#x7ED9;&#x53E6;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x4E00;&#x6837;&#x3002;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x8BBF;&#x95EE;&#x53D8;&#x91CF;&#x662F;&#x6709;&#x6309;&#x503C;&#x548C;&#x6309;&#x5F15;&#x7528;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x800C;&#x53C2;&#x6570;&#x53EA;&#x80FD;&#x6309;&#x503C;&#x4F20;&#x9012;&#x3002;&#x4EC0;&#x4E48;&#x610F;&#x601D;&#x5462;&#xFF1F;</p>
+<p>&#x9996;&#x5148;&#x62FF;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x503C;&#x4E3E;&#x4F8B;&#xFF0C;&#x8FD9;&#x4E2A;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x7406;&#x89E3;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">addTen</span>(<span class="params">num</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;num+=<span class="number">10</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;num</span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span>&#xA0;count&#xA0;=&#xA0;<span class="number">10</span></span><br><span class="line"><span class="built_in">console</span>.log(addTen(count))&#xA0;<span class="comment">//&#xA0;20</span></span><br><span class="line"><span class="built_in">console</span>.log(count)&#xA0;<span class="comment">//&#xA0;10 &#x6CA1;&#x6709;&#x53D8;&#x5316;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5C31;&#x7531;&#x590D;&#x5236;&#x53D8;&#x91CF;&#x90A3;&#x8BF4;&#x7684;&#xFF0C;&#x4E24;&#x4E2A;&#x53D8;&#x91CF;&#xFF08;&#x8FD9;&#x91CC;&#x6307;count&#xFF0C;num&#xFF09;&#x662F;&#x76F8;&#x4E92;&#x72EC;&#x7ACB;&#x800C;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#x7684;</p>
+<p>&#x73B0;&#x5728;&#x62FF;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x4E3E;&#x4F8B;&#xFF0C;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x9519;&#x8BEF;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">setName</span>(<span class="params">obj</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;obj.name&#xA0;=&#xA0;<span class="string">&apos;leni&apos;</span></span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span>&#xA0;person&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Object</span>()</span><br><span class="line">setName(person)</span><br><span class="line"><span class="built_in">console</span>.log(person.name)&#xA0;<span class="comment">//&#xA0;leni</span></span><br></pre></td></tr></tbody></table></figure>
+<p>person&#x548C;obj&#x90FD;&#x6307;&#x5411;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x3002;<br>&#x518D;&#x7A0D;&#x4F5C;&#x4FEE;&#x6539;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">setName</span>(<span class="params">obj</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;obj.name&#xA0;=&#xA0;<span class="string">&apos;leni&apos;</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;obj&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Object</span>()</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;obj.name&#xA0;=&#xA0;<span class="string">&apos;Nikky&apos;</span></span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span>&#xA0;person&#xA0;=&#xA0;<span class="keyword">new</span>&#xA0;<span class="built_in">Object</span>()</span><br><span class="line">setName(person)</span><br><span class="line"><span class="built_in">console</span>.log(person.name)&#xA0;<span class="comment">//&#xA0;leni</span></span><br></pre></td></tr></tbody></table></figure>
+<p>person&#x7684;name&#x5C5E;&#x6027;&#x503C;&#x4ECD;&#x4E3A;leni&#xFF0C;&#x6709;&#x4EBA;&#x53EF;&#x80FD;&#x4F1A;&#x95EE;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x662F;Nikky&#x5462;&#xFF1F;<br>&#x4E00;&#x5F00;&#x59CB;person&#x548C;obj&#x90FD;&#x6307;&#x5411;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x518D;&#x7ED9;&#x5BF9;&#x8C61;&#x7684;name&#x8D4B;&#x503C;&#x4E4B;&#x540E;&#xFF0C;&#x53D8;&#x91CF;obj&#x88AB;&#x8D4B;&#x503C;&#x6210;&#x4E86;&#x53E6;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x6B64;&#x65F6;obj&#x548C;person&#x6307;&#x5411;&#x7684;&#x4E0D;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x540E;&#x9762;obj.name = &#x2018;Nikky&#x2019;&#x662F;&#x65B0;&#x5BF9;&#x8C61;&#x7684;name&#x4E3A;Nikky&#xFF0C;&#x800C;person&#x6307;&#x5411;&#x7684;&#x5BF9;&#x8C61;&#x7684;name&#x5E76;&#x6CA1;&#x6709;&#x53D8;&#x3002;<br>&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x5F53;&#x5728;&#x51FD;&#x6570;&#x5185;&#x91CD;&#x5199;obj&#x65F6;&#xFF0C;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x5F15;&#x7528;&#x7684;&#x662F;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#xFF0C;&#x5B83;&#x4F1A;&#x5728;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#x7ACB;&#x5373;&#x88AB;&#x9500;&#x6BC1;&#x3002;</p>
+<h4 id="&#x68C0;&#x6D4B;&#x7C7B;&#x578B;"><a href="#&#x68C0;&#x6D4B;&#x7C7B;&#x578B;" class="headerlink" title="&#x68C0;&#x6D4B;&#x7C7B;&#x578B;"></a>&#x68C0;&#x6D4B;&#x7C7B;&#x578B;</h4><p><strong>typeof&#x548C;instanceof&#x7684;&#x533A;&#x522B;</strong><br>typeof&#x662F;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#xFF0C;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x503C;&#x662F;&#x54EA;&#x79CD;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#xFF1B;&#x800C;instanceof&#x662F;&#x8FD4;&#x56DE;true&#x6216;&#x8005;false&#xFF0C;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x503C;&#x662F;&#x54EA;&#x79CD;&#x5F15;&#x7528;&#x7C7B;&#x578B;</p>
+<p>typeof&#x64CD;&#x4F5C;&#x7B26;&#x662F;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x662F;Undefined&#xFF0C;String&#xFF0C;Number&#x6216;&#x8005;Boolean&#x7684;&#x6700;&#x4F73;&#x5DE5;&#x5177;&#xFF0C;&#x5982;&#x679C;&#x53D8;&#x91CF;&#x7684;&#x503C;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6216;&#x8005;null&#xFF0C;typeof&#x4F1A;&#x8FD4;&#x56DE;object</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> u&#xFF1B;</span><br><span class="line"><span class="keyword">var</span> n = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> u) <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> n) <span class="comment">// object</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x53D8;&#x91CF;&#x662F;&#x7ED9;&#x5B9A;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#xFF08;&#x6839;&#x636E;&#x539F;&#x578B;&#x94FE;&#x8BC6;&#x522B;&#xFF09;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x90A3;&#x4E48;instanceof&#x5C31;&#x4F1A;&#x8FD4;&#x56DE;true</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(person <span class="keyword">instanceof</span> <span class="built_in">Object</span>) <span class="comment">// true</span></span><br><span class="line"><span class="comment">// person&#x662F;Object&#x7684;&#x5B9E;&#x4F8B;</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x6267;&#x884C;&#x73AF;&#x5883;&#x53CA;&#x4F5C;&#x7528;&#x57DF;"><a href="#&#x6267;&#x884C;&#x73AF;&#x5883;&#x53CA;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="&#x6267;&#x884C;&#x73AF;&#x5883;&#x53CA;&#x4F5C;&#x7528;&#x57DF;"></a>&#x6267;&#x884C;&#x73AF;&#x5883;&#x53CA;&#x4F5C;&#x7528;&#x57DF;</h3><p>&#x6267;&#x884C;&#x73AF;&#x5883;(&#x73AF;&#x5883;): &#x5B9A;&#x4E49;&#x4E86;&#x53D8;&#x91CF;&#x6216;&#x51FD;&#x6570;&#x6709;&#x6743;&#x8BBF;&#x95EE;&#x7684;&#x5176;&#x4ED6;&#x6570;&#x636E;&#xFF0C;&#x51B3;&#x5B9A;&#x4E86;&#x5B83;&#x4EEC;&#x7684;&#x884C;&#x4E3A;&#x3002;&#x5B83;&#x6709;&#x52A9;&#x4E8E;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#x786E;&#x5B9A;&#x4F55;&#x65F6;&#x91CA;&#x653E;&#x5185;&#x5B58;&#x3002;&#x6BCF;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#x90FD;&#x6709;&#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#x7684;<strong>&#x53D8;&#x91CF;&#x5BF9;&#x8C61;</strong>&#x3002;&#x73AF;&#x5883;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x90FD;&#x4FDD;&#x5B58;&#x5728;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x4E2D;&#x3002;&#x4E24;&#x79CD;&#x7C7B;&#x578B;&#xFF1A;&#x5168;&#x5C40;&#x548C;&#x5C40;&#x90E8;</p>
+<p>&#x67D0;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x4EE3;&#x7801;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#xFF0C;&#x8BE5;&#x73AF;&#x5883;&#x4F1A;&#x88AB;&#x9500;&#x6BC1;&#xFF0C;&#x5176;&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x4E5F;&#x4F1A;&#x88AB;&#x9500;&#x6BC1;&#x3002;</p>
+<p>&#x6BCF;&#x4E2A;&#x51FD;&#x6570;&#x90FD;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x5F53;&#x6267;&#x884C;&#x6D41;&#x8FDB;&#x5165;&#x51FD;&#x6570;&#x4E4B;&#x540E;&#xFF0C;&#x73AF;&#x5883;&#x5C31;&#x4F1A;&#x88AB;&#x63A8;&#x5165;&#x5230;&#x4E00;&#x4E2A;&#x73AF;&#x5883;&#x6808;&#x4E2D;&#xFF1B;&#x51FD;&#x6570;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#xFF0C;&#x6808;&#x4F1A;&#x5C06;&#x5176;&#x73AF;&#x5883;&#x5F39;&#x51FA;&#xFF0C;&#x628A;&#x63A7;&#x5236;&#x6743;&#x8FD4;&#x56DE;&#x4E4B;&#x524D;&#x7684;&#x6267;&#x884C;&#x73AF;&#x5883;&#x3002;</p>
+<p>&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#xFF1A;&#x5F53;&#x4EE3;&#x7801;&#x5728;&#x4E00;&#x4E2A;&#x73AF;&#x5883;&#x4E2D;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x4F1A;&#x521B;&#x5EFA;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#x7684;&#x4E00;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x3002;&#x5B83;&#x4FDD;&#x8BC1;&#x4E86;&#x5BF9;&#x6267;&#x884C;&#x73AF;&#x5883;&#x6709;&#x6743;&#x8BBF;&#x95EE;&#x7684;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x7684;<strong>&#x6709;&#x5E8F;&#x8BBF;&#x95EE;</strong>&#x3002;&#x8BF4;&#x767D;&#x4E86;&#xFF0C;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x5C31;&#x662F;&#x7528;&#x6765;&#x641C;&#x7D22;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x7684;&#x3002;<br>&#x4F5C;&#x7528;&#x57DF;&#x524D;&#x7AEF;&#x59CB;&#x7EC8;&#x662F;&#x5F53;&#x524D;&#x6267;&#x884C;&#x7684;&#x4EE3;&#x7801;&#x6240;&#x5728;&#x73AF;&#x5883;&#x7684;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#xFF0C;&#x4E0B;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#x6765;&#x81EA;&#x5305;&#x542B;&#x73AF;&#x5883;(&#x5373;&#x5916;&#x90E8;&#x73AF;&#x5883;&#xFF09;&#xFF0C;&#x518D;&#x4E0B;&#x4E00;&#x4E2A;&#x5C31;&#x662F;&#x4E0B;&#x4E00;&#x4E2A;&#x7684;&#x5305;&#x542B;&#x73AF;&#x5883;&#xFF0C;&#x4E00;&#x76F4;&#x5230;&#x5168;&#x5C40;&#x6267;&#x884C;&#x73AF;&#x5883;&#x3002;<strong>&#x5168;&#x5C40;&#x6267;&#x884C;&#x73AF;&#x5883;&#x7684;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#x59CB;&#x7EC8;&#x90FD;&#x662F;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x4E2D;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;</strong>&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span>&#xA0;color&#xA0;=&#xA0;<span class="string">&apos;blue&apos;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">changeColor</span>(<span class="params"></span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">var</span>&#xA0;anotherColor&#xA0;=&#xA0;<span class="string">&apos;red&apos;</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="function"><span class="keyword">function</span>&#xA0;<span class="title">swapColor</span>(<span class="params"></span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span class="comment">//&#xA0;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;color,anotherColor,&#xA0;tempColor</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">var</span>&#xA0;tempColor&#xA0;=&#xA0;anotherColor</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;anotherColor&#xA0;=&#xA0;color</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;color&#xA0;=&#xA0;tempColor</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;swapColor()&#xA0;<span class="comment">//&#xA0;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;color,anotherColor</span></span><br><span class="line">}</span><br><span class="line">changeColor()&#xA0;<span class="comment">//&#xA0;&#x53EA;&#x80FD;&#x8BBF;&#x95EE;color</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4E0A;&#x9762;&#x4EE3;&#x7801;&#x6709;3&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#xFF1A;&#x5168;&#x5C40;&#x73AF;&#x5883;&#xFF0C;changeColor()&#x7684;&#x5C40;&#x90E8;&#x73AF;&#x5883;&#xFF0C;swapColor()&#x7684;&#x5C40;&#x90E8;&#x73AF;&#x5883;&#x3002;&#x73AF;&#x5883;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x7236;&#x6267;&#x884C;&#x73AF;&#x5883;&#x7684;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5185;&#x90E8;&#x73AF;&#x5883;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x8BBF;&#x95EE;&#x6240;&#x6709;&#x7684;&#x5916;&#x90E8;&#x73AF;&#x5883;&#xFF0C;&#x4F46;&#x662F;&#x5916;&#x90E8;&#x73AF;&#x5883;&#x5E76;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;&#x5185;&#x90E8;&#x73AF;&#x5883;&#x4E2D;&#x7684;&#x4EFB;&#x4F55;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#x3002;&#x8FD9;&#x4E9B;&#x73AF;&#x5883;&#x4E4B;&#x95F4;&#x7684;&#x8054;&#x7CFB;&#x662F;&#x7EBF;&#x6027;&#x7684;&#x3001;&#x6709;&#x6B21;&#x5E8F;&#x7684;&#x3002;&#x73AF;&#x5883;&#x53EF;&#x4EE5;&#x5411;&#x4E0A;&#x641C;&#x7D22;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#xFF0C;&#x53BB;&#x67E5;&#x8BE2;&#x53D8;&#x91CF;&#x548C;&#x51FD;&#x6570;&#xFF1B;&#x4F46;&#x662F;&#x4E0D;&#x80FD;&#x5411;&#x4E0B;&#x641C;&#x7D22;&#x800C;&#x8FDB;&#x5165;&#x53E6;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x73AF;&#x5883;&#x3002;</p>
+<h4 id="&#x5EF6;&#x957F;&#x4F5C;&#x7528;&#x57DF;&#x94FE;"><a href="#&#x5EF6;&#x957F;&#x4F5C;&#x7528;&#x57DF;&#x94FE;" class="headerlink" title="&#x5EF6;&#x957F;&#x4F5C;&#x7528;&#x57DF;&#x94FE;"></a>&#x5EF6;&#x957F;&#x4F5C;&#x7528;&#x57DF;&#x94FE;</h4><p>&#x6709;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x8BA9;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#x80FD;&#x8BBF;&#x95EE;&#x5230;&#x6240;&#x5305;&#x542B;&#x7684;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x6216;&#x51FD;&#x6570;&#xFF0C;&#x6216;&#x8005;&#x5B9E;&#x73B0;&#x540C;&#x7EA7;&#x8BBF;&#x95EE;&#x5462;&#xFF1F;<br>&#x6709;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x53EF;&#x4EE5;&#x6709;&#xFF1A;</p>
+<ol class="ui list">
+<li>try-catch&#x8BED;&#x53E5;&#x7684;catch&#x5757;<br>&#x5BF9;catch&#x8BED;&#x53E5;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x53D8;&#x91CF;&#x5BF9;&#x8C61;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x542B;&#x4E86;&#x629B;&#x51FA;&#x7684;&#x9519;&#x8BEF;&#x5BF9;&#x8C61;&#x7684;&#x58F0;&#x660E;&#x3002;</li>
+<li>with&#x8BED;&#x53E5;<br>&#x5BF9;with&#x8BED;&#x53E5;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x6307;&#x5B9A;&#x7684;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;&#x5230;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x4E2D;&#x3002;&#x5982;&#x4E0B;&#x4F8B;&#x5B50;&#xFF1A;</li>
+</ol>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">buildUrl</span>(<span class="params"></span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">var</span>&#xA0;qs&#xA0;=&#xA0;<span class="string">&apos;?debug=true&apos;</span></span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">with</span>(location){</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">var</span>&#xA0;url&#xA0;=&#xA0;href&#xA0;+&#xA0;qs</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;}</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;url</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;"><a href="#&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;"></a>&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;</h4><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++){</span><br><span class="line">    doSomething(i)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i) <span class="comment">// 10</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x60F3;&#x5FC5;&#x5F88;&#x591A;&#x4EBA;&#x90FD;&#x5BF9;&#x4E0A;&#x9762;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x633A;&#x719F;&#x6089;&#x7684;&#xFF0C;&#x90E8;&#x5206;&#x4EBA;&#x4E00;&#x5F00;&#x59CB;&#x4EE5;&#x4E3A;&#x8F93;&#x51FA;&#x7684;i&#x4F1A;&#x7B49;&#x4E8E;undefined&#x6216;&#x8005;0&#xFF1B;&#x5176;&#x5B9E;i&#x4E3A;10&#xFF0C;&#x8FD9;&#x65F6;&#x56E0;&#x4E3A;js&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF08;{}&#x91CC;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x4E0D;&#x8FC7;ES6&#x4E2D;&#x65B0;&#x589E;&#x4E86;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF09;&#x3002;</p>
+<p><strong>&#x58F0;&#x660E;&#x53D8;&#x91CF;</strong><br>&#x4F7F;&#x7528;var&#x58F0;&#x660E;&#x7684;&#x53D8;&#x91CF;&#x4F1A;&#x88AB;&#x81EA;&#x52A8;&#x6DFB;&#x52A0;&#x5230;&#x6700;&#x63A5;&#x8FD1;&#x7684;&#x73AF;&#x5883;&#x4E2D;&#x3002;&#x5728;with&#x8BED;&#x53E5;&#x4E2D;&#xFF0C;&#x6700;&#x63A5;&#x8FD1;&#x7684;&#x73AF;&#x5883;&#x662F;&#x51FD;&#x6570;&#x73AF;&#x5883;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x80FD;&#x7406;&#x89E3;&#x4E0A;&#x9762;&#x5EF6;&#x957F;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x7684;&#x4EE3;&#x7801;&#x4F8B;&#x5B50;&#x4E86;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">add</span>(<span class="params">num1,&#xA0;num2</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">var</span>&#xA0;sum&#xA0;=&#xA0;num1&#xA0;+&#xA0;num2</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;sum</span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span>&#xA0;result&#xA0;=&#xA0;add(<span class="number">10</span>,<span class="number">20</span>)</span><br><span class="line"><span class="built_in">console</span>.log(sum)&#xA0;<span class="comment">//&#xA0;sum&#xA0;is&#xA0;not&#xA0;defined</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x679C;&#x521D;&#x59CB;&#x5316;&#x53D8;&#x91CF;&#x65F6;&#x6CA1;&#x6709;&#x4F7F;&#x7528;var&#x58F0;&#x660E;&#xFF0C;&#x8BE5;&#x53D8;&#x91CF;&#x5C31;&#x4F1A;&#x81EA;&#x52A8;&#x88AB;&#x6DFB;&#x52A0;&#x5230;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>&#xA0;<span class="title">add</span>(<span class="params">num1,&#xA0;num2</span>)</span>{</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;sum&#xA0;=&#xA0;num1&#xA0;+&#xA0;num2</span><br><span class="line">&#xA0;&#xA0;&#xA0;&#xA0;<span class="keyword">return</span>&#xA0;sum</span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span>&#xA0;result&#xA0;=&#xA0;add(<span class="number">10</span>,<span class="number">20</span>)</span><br><span class="line"><span class="built_in">console</span>.log(sum)&#xA0;<span class="comment">//&#xA0;30</span></span><br></pre></td></tr></tbody></table></figure>
+<p>&#x5982;&#x4E0A;&#xFF0C;sum&#x80FD;&#x591F;&#x88AB;&#x8BBF;&#x95EE;&#x5230;&#x4E86;&#x3002;</p>
+<p><em>&#x6CE8;&#x610F;&#xFF0C;&#x4E0D;&#x58F0;&#x660E;&#x800C;&#x76F4;&#x63A5;&#x521D;&#x59CB;&#x5316;&#x53D8;&#x91CF;&#x662F;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x7684;&#x505A;&#x6CD5;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5BFC;&#x81F4;&#x4E00;&#x4E9B;&#x95EE;&#x9898;</em></p>
+<p><strong>&#x67E5;&#x8BE2;&#x6807;&#x8BC6;&#x7B26;</strong><br>&#x6CBF;&#x7740;&#x4F5C;&#x7528;&#x57DF;&#x94FE;&#x5411;&#x4E0A;&#x67E5;&#x8BE2;&#xFF0C;&#x76F4;&#x81F3;&#x627E;&#x5230;&#x8BE5;&#x6807;&#x8BC6;&#x7B26;&#x3002;&#x6700;&#x540E;&#x627E;&#x5230;&#x5168;&#x5C40;&#x73AF;&#x5883;&#x90FD;&#x6CA1;&#x627E;&#x5230;&#xFF0C;&#x90A3;&#x5C31;&#x662F;&#x8BE5;&#x53D8;&#x91CF;&#x5C1A;&#x672A;&#x58F0;&#x660E;&#x3002;</p>
+<h3 id="&#x5783;&#x573E;&#x6536;&#x96C6;"><a href="#&#x5783;&#x573E;&#x6536;&#x96C6;" class="headerlink" title="&#x5783;&#x573E;&#x6536;&#x96C6;"></a>&#x5783;&#x573E;&#x6536;&#x96C6;</h3><p>JS&#x5177;&#x6709;&#x81EA;&#x52A8;&#x5783;&#x573E;&#x6536;&#x96C6;&#x673A;&#x5236;&#xFF0C;&#x5373;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x5173;&#x5FC3;&#x5185;&#x5B58;&#x7684;&#x4F7F;&#x7528;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x9700;&#x5185;&#x5B58;&#x7684;&#x5206;&#x914D;&#x4EE5;&#x53CA;&#x65E0;&#x7528;&#x5185;&#x5B58;&#x7684;&#x56DE;&#x6536;&#x5B9E;&#x73B0;&#x4E86;&#x81EA;&#x52A8;&#x7BA1;&#x7406;&#x3002;&#x5783;&#x573E;&#x6536;&#x96C6;&#x673A;&#x5236;&#x4F1A;&#x6309;&#x7167;&#x56FA;&#x5B9A;&#x65F6;&#x95F4;(&#x6216;&#x4EE3;&#x7801;&#x8BBE;&#x5B9A;&#x7684;&#x65F6;&#x95F4;)&#x5468;&#x671F;&#x6027;&#x6267;&#x884C;&#x8FD9;&#x4E00;&#x64CD;&#x4F5C;&#x3002;<br>&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#xFF0C;&#x8FD9;&#x4E00;&#x64CD;&#x4F5C;&#x7684;&#x7B56;&#x7565;&#x6709;&#x4E24;&#x79CD;&#xFF1A;</p>
+<ol class="ui list">
+<li>&#x6807;&#x8BB0;&#x6E05;&#x9664;<br>&#x8FD9;&#x662F;js&#x6700;&#x5E38;&#x7528;&#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x65B9;&#x5F0F;&#x3002;&#x901A;&#x8FC7;&#x7ED9;&#x53D8;&#x91CF;&#x6807;&#x8BB0;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x5224;&#x65AD;&#x662F;&#x5426;&#x4ECE;&#x5185;&#x5B58;&#x4E2D;&#x5220;&#x9664;&#x5B83;&#xFF0C;&#x4ECE;&#x800C;&#x5B8C;&#x6210;&#x5185;&#x5B58;&#x6E05;&#x7406;&#x5DE5;&#x4F5C;&#x3002;</li>
+<li>&#x5F15;&#x7528;&#x8BA1;&#x6570;<br>&#x5BF9;&#x53D8;&#x91CF;&#x88AB;&#x5F15;&#x7528;&#x7684;&#x6B21;&#x6570;&#x8FDB;&#x884C;&#x8BA1;&#x6570;&#xFF0C;&#x4F46;&#x6B21;&#x6570;&#x53D8;&#x6210;0&#x65F6;&#xFF0C;&#x5C31;&#x5C06;&#x5176;&#x6240;&#x5360;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x56DE;&#x6536;&#x8D77;&#x6765;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x6CD5;&#x4E0D;&#x592A;&#x5E38;&#x7528;&#x7684;&#x539F;&#x56E0;&#x662F;&#xFF1A;&#x5B83;&#x4F1A;&#x9047;&#x5230;<strong>&#x5FAA;&#x73AF;&#x5F15;&#x7528;</strong>&#xFF08;&#x5373;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;&#x4E92;&#x76F8;&#x5F15;&#x7528;&#x7684;&#x60C5;&#x51B5;&#xFF09;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;</li>
+</ol>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x4E3A;&#x4E86;&#x4F18;&#x5316;&#x9875;&#x9762;&#x7684;&#x6027;&#x80FD;&#xFF0C;&#x51CF;&#x5C11;&#x5360;&#x7528;&#x5185;&#x5B58;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4E3A;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x7684;&#x53D8;&#x91CF;&#x503C;&#x8BBE;&#x7F6E;&#x4E3A;null&#xFF0C;&#x4EE5;&#x4FBF;&#x5783;&#x573E;&#x6536;&#x96C6;&#x673A;&#x5236;&#x53EF;&#x4EE5;&#x5C06;&#x5176;&#x56DE;&#x6536;&#xFF0C;&#x8FD9;&#x53EB;&#x505A;<strong>&#x89E3;&#x9664;&#x5F15;&#x7528;</strong>&#x3002;</p>
+</body></html>
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2020-02-25T15:38:17.336Z" itemprop="datePublished">2020-02-25</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a class="ui tiny button disabled"><i class="angle left icon"></i>Previous</a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2020/02/19/blog5/" class="ui tiny button">
+                    
+                    安卓(kotlin)实现实时监听网络变化
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#基本类型和引用类型的值"><span>基本类型和引用类型的值</span></a><ol><li><a href="#动态的属性"><span>动态的属性</span></a></li><li><a href="#复制变量值"><span>复制变量值</span></a></li><li><a href="#传递参数"><span>传递参数</span></a></li><li><a href="#检测类型"><span>检测类型</span></a></li></ol></li><li><a href="#执行环境及作用域"><span>执行环境及作用域</span></a><ol><li><a href="#延长作用域链"><span>延长作用域链</span></a></li><li><a href="#没有块级作用域"><span>没有块级作用域</span></a></li></ol></li><li><a href="#垃圾收集"><span>垃圾收集</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2020 <a href="/">Leni</a>,
+        <a href="https://github.com/leniNikky" target="_blank">my github</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
+</body>
+</html>
