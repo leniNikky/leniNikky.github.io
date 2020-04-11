@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <title>Vue2.0+源码分析——响应式原理(一) | Coding with cooker&#39; soul</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5BF9;&amp;#x8C61;Vue.js&amp;#x7684;&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5B9E;&amp;#x73B0;&amp;#x7684;&amp;#x6838;&amp;#x5FC3;&amp;#x662F;&amp;#x4F7F;&amp;#x7528;&amp;#x5230;&amp;#x4E86;ES5&amp;#x7684;Obect.defineProperty&amp;#x3002; Ob">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2.0+源码分析——响应式原理(一)">
+<meta property="og:url" content="http://yoursite.com/2020/04/06/blog14/index.html">
+<meta property="og:site_name" content="Coding with cooker&#39; soul">
+<meta property="og:description" content="&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5BF9;&amp;#x8C61;Vue.js&amp;#x7684;&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5B9E;&amp;#x73B0;&amp;#x7684;&amp;#x6838;&amp;#x5FC3;&amp;#x662F;&amp;#x4F7F;&amp;#x7528;&amp;#x5230;&amp;#x4E86;ES5&amp;#x7684;Obect.defineProperty&amp;#x3002; Ob">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-06T07:39:54.863Z">
+<meta property="article:modified_time" content="2020-04-11T15:45:21.006Z">
+<meta property="article:author" content="Leni">
+<meta name="twitter:card" content="summary">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "Leni",
+  "url": "http://yoursite.com"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
+</head>
+<body id="body" style="margin-bottom: 0;" class="pushable">
+
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
+
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>Coding with cooker&#39; soul</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">Leni</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+    
+    
+
+    
+
+    
+    <a href="/index.html" class="item" >
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-blog14" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Vue2.0+源码分析——响应式原理(一)
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <html><head></head><body><h2 id="&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;"><a href="#&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;" class="headerlink" title="&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;"></a>&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;</h2><p>Vue.js&#x7684;&#x54CD;&#x5E94;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;&#x6838;&#x5FC3;&#x662F;&#x4F7F;&#x7528;&#x5230;&#x4E86;ES5&#x7684;Obect.defineProperty&#x3002;</p>
+<h3 id="Obect-defineProperty"><a href="#Obect-defineProperty" class="headerlink" title="Obect.defineProperty"></a>Obect.defineProperty</h3><p>Obect.defineProperty&#x4F1A;&#x76F4;&#x63A5;&#x5728;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x65B0;&#x5C5E;&#x6027;&#xFF0C;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x73B0;&#x6709;&#x5C5E;&#x6027;&#xFF0C;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(obj, prop, descriptor)</span><br></pre></td></tr></tbody></table></figure>
+<p>obj&#x662F;&#x8981;&#x5728;&#x5176;&#x4E0A;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x7684;&#x5BF9;&#x8C61;&#xFF1B;prop&#x662F;&#x8981;&#x5B9A;&#x4E49;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x7684;&#x5C5E;&#x6027;&#x7684;&#x540D;&#x79F0;&#xFF1B;descriptor&#x662F;&#x5C06;&#x88AB;&#x5B9A;&#x4E49;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x7684;&#x5C5E;&#x6027;&#x540D;&#x5B57;&#x3002;</p>
+<p>&#x5176;&#x4E2D;descriptor&#x7684;&#x53EF;&#x9009;&#x952E;&#x503C;get&#x548C;set&#x503C;&#x5F97;&#x6CE8;&#x610F;&#xFF0C;get&#x662F;&#x7ED9;&#x5C5E;&#x6027;&#x63D0;&#x4F9B;&#x7684;getter&#x65B9;&#x6CD5;&#xFF1B;set&#x662F;&#x7ED9;&#x5C5E;&#x6027;&#x63D0;&#x4F9B;&#x7684;setter&#x65B9;&#x6CD5;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x5BF9;&#x5C5E;&#x6027;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;&#x65F6;&#x5C31;&#x4F1A;&#x89E6;&#x53D1;getter&#x65B9;&#x6CD5;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x5BF9;&#x5C5E;&#x6027;&#x505A;&#x4FEE;&#x6539;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x89E6;&#x53D1;setter&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x62E5;&#x6709;getter&#x548C;setter&#x65B9;&#x6CD5;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7B80;&#x5355;&#x7684;&#x8BA4;&#x4E3A;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5C31;&#x662F;&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x4E0D;&#x8FC7;vue&#x662F;&#x5982;&#x4F55;&#x628A;&#x5BF9;&#x8C61;&#x53D8;&#x6210;&#x54CD;&#x5E94;&#x5F0F;&#x7684;&#x5462;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x4E00;&#x8D77;&#x6765;&#x770B;&#x6E90;&#x7801;&#x5427;~</p>
+<h3 id="initState"><a href="#initState" class="headerlink" title="initState"></a>initState</h3><p>&#x5728;vue&#x521D;&#x59CB;&#x5316;&#x9636;&#x6BB5;&#xFF0C;_init&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x6267;&#x884C;initState(vm)&#x65B9;&#x6CD5;&#xFF0C;&#x5728;src/core/instance/state.js&#x53EF;&#x4EE5;&#x627E;&#x5230;&#x5B83;&#x7684;&#x5B9A;&#x4E49;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initState</span> (<span class="params">vm: Component</span>) </span>{</span><br><span class="line">  vm._watchers = []</span><br><span class="line">  <span class="keyword">const</span> opts = vm.$options</span><br><span class="line">  <span class="keyword">if</span> (opts.props) initProps(vm, opts.props)</span><br><span class="line">  <span class="keyword">if</span> (opts.methods) initMethods(vm, opts.methods)</span><br><span class="line">  <span class="keyword">if</span> (opts.data) {</span><br><span class="line">    initData(vm)</span><br><span class="line">  } <span class="keyword">else</span> {</span><br><span class="line">    observe(vm._data = {}, <span class="literal">true</span> <span class="comment">/* asRootData */</span>)</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">if</span> (opts.computed) initComputed(vm, opts.computed)</span><br><span class="line">  <span class="keyword">if</span> (opts.watch &amp;&amp; opts.watch !== nativeWatch) {</span><br><span class="line">    initWatch(vm, opts.watch)</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>initState&#x65B9;&#x6CD5;&#x4E3B;&#x8981;&#x662F;&#x5BF9;props&#x3001;data&#x3001;methods&#x3001;computed&#x548C;watch&#x7B49;&#x5C5E;&#x6027;&#x505A;&#x4E86;&#x521D;&#x59CB;&#x5316;&#x64CD;&#x4F5C;&#x3002;&#x4E0B;&#x9762;&#x53EA;&#x5206;&#x6790;props&#x548C;data&#x3002;</p>
+<ul class="ui list">
+<li><strong>initProps</strong></li>
+</ul>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initProps</span> (<span class="params">vm: Component, propsOptions: Object</span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> propsData = vm.$options.propsData || {}</span><br><span class="line">  <span class="keyword">const</span> props = vm._props = {}</span><br><span class="line">  <span class="comment">// cache prop keys so that future props updates can iterate using Array</span></span><br><span class="line">  <span class="comment">// instead of dynamic object key enumeration.</span></span><br><span class="line">  <span class="keyword">const</span> keys = vm.$options._propKeys = []</span><br><span class="line">  <span class="keyword">const</span> isRoot = !vm.$parent</span><br><span class="line">  <span class="comment">// root instance props should be converted</span></span><br><span class="line">  <span class="keyword">if</span> (!isRoot) {</span><br><span class="line">    toggleObserving(<span class="literal">false</span>)</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> propsOptions) {</span><br><span class="line">    keys.push(key)</span><br><span class="line">    <span class="keyword">const</span> value = validateProp(key, propsOptions, propsData, vm)</span><br><span class="line">    <span class="comment">/* istanbul ignore else */</span></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&apos;production&apos;</span>) {</span><br><span class="line">      <span class="keyword">const</span> hyphenatedKey = hyphenate(key)</span><br><span class="line">      <span class="keyword">if</span> (isReservedAttribute(hyphenatedKey) ||</span><br><span class="line">          config.isReservedAttr(hyphenatedKey)) {</span><br><span class="line">        warn(</span><br><span class="line">          <span class="string">`&quot;<span class="subst">${hyphenatedKey}</span>&quot; is a reserved attribute and cannot be used as component prop.`</span>,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      }</span><br><span class="line">      defineReactive(props, key, value, () =&gt; {</span><br><span class="line">        <span class="keyword">if</span> (!isRoot &amp;&amp; !isUpdatingChildComponent) {</span><br><span class="line">          warn(</span><br><span class="line">            <span class="string">`Avoid mutating a prop directly since the value will be `</span> +</span><br><span class="line">            <span class="string">`overwritten whenever the parent component re-renders. `</span> +</span><br><span class="line">            <span class="string">`Instead, use a data or computed property based on the prop&apos;s `</span> +</span><br><span class="line">            <span class="string">`value. Prop being mutated: &quot;<span class="subst">${key}</span>&quot;`</span>,</span><br><span class="line">            vm</span><br><span class="line">          )</span><br><span class="line">        }</span><br><span class="line">      })</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">      defineReactive(props, key, value)</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// static props are already proxied on the component&apos;s prototype</span></span><br><span class="line">    <span class="comment">// during Vue.extend(). We only need to proxy props defined at</span></span><br><span class="line">    <span class="comment">// instantiation here.</span></span><br><span class="line">    <span class="keyword">if</span> (!(key <span class="keyword">in</span> vm)) {</span><br><span class="line">      proxy(vm, <span class="string">`_props`</span>, key)</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  toggleObserving(<span class="literal">true</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>props&#x7684;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;&#xFF0C;&#x5C31;&#x662F;&#x5BF9;props&#x7684;&#x914D;&#x7F6E;&#x8FDB;&#x884C;&#x904D;&#x5386;&#xFF0C;&#x904D;&#x5386;&#x4E3B;&#x8981;&#x505A;&#x4E86;&#x4E24;&#x4EF6;&#x4E8B;&#xFF1A;&#x4E00;&#x4EF6;&#x662F;&#x4F7F;&#x7528;defineReactive&#x65B9;&#x6CD5;&#x628A;&#x6BCF;&#x4E2A;prop&#x5BF9;&#x5E94;&#x7684;&#x503C;&#x53D8;&#x6210;&#x54CD;&#x5E94;&#x5F0F;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;vm._props.xxx&#x8BBF;&#x95EE;&#x5230;&#x5BF9;&#x5E94;&#x7684;&#x5C5E;&#x6027;&#xFF1B;&#x53E6;&#x5916;&#x4E00;&#x4EF6;&#x4E8B;&#x662F;&#x4F7F;&#x7528;proxy&#x65B9;&#x6CD5;&#x628A;vm._props.xxx&#x4EE3;&#x7406;&#x5230;vm.xxx&#x4E0A;&#x3002;</p>
+<ul class="ui list">
+<li><strong>initData</strong></li>
+</ul>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initData</span> (<span class="params">vm: Component</span>) </span>{</span><br><span class="line">  <span class="keyword">let</span> data = vm.$options.data</span><br><span class="line">  data = vm._data = <span class="keyword">typeof</span> data === <span class="string">&apos;function&apos;</span></span><br><span class="line">    ? getData(data, vm)</span><br><span class="line">    : data || {}</span><br><span class="line">  <span class="keyword">if</span> (!isPlainObject(data)) {</span><br><span class="line">    data = {}</span><br><span class="line">    process.env.NODE_ENV !== <span class="string">&apos;production&apos;</span> &amp;&amp; warn(</span><br><span class="line">      <span class="string">&apos;data functions should return an object:\n&apos;</span> +</span><br><span class="line">      <span class="string">&apos;https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function&apos;</span>,</span><br><span class="line">      vm</span><br><span class="line">    )</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">// proxy data on instance</span></span><br><span class="line">  <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(data)</span><br><span class="line">  <span class="keyword">const</span> props = vm.$options.props</span><br><span class="line">  <span class="keyword">const</span> methods = vm.$options.methods</span><br><span class="line">  <span class="keyword">let</span> i = keys.length</span><br><span class="line">  <span class="keyword">while</span> (i--) {</span><br><span class="line">    <span class="keyword">const</span> key = keys[i]</span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&apos;production&apos;</span>) {</span><br><span class="line">      <span class="keyword">if</span> (methods &amp;&amp; hasOwn(methods, key)) {</span><br><span class="line">        warn(</span><br><span class="line">          <span class="string">`Method &quot;<span class="subst">${key}</span>&quot; has already been defined as a data property.`</span>,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (props &amp;&amp; hasOwn(props, key)) {</span><br><span class="line">      process.env.NODE_ENV !== <span class="string">&apos;production&apos;</span> &amp;&amp; warn(</span><br><span class="line">        <span class="string">`The data property &quot;<span class="subst">${key}</span>&quot; is already declared as a prop. `</span> +</span><br><span class="line">        <span class="string">`Use prop default value instead.`</span>,</span><br><span class="line">        vm</span><br><span class="line">      )</span><br><span class="line">    } <span class="keyword">else</span> <span class="keyword">if</span> (!isReserved(key)) {</span><br><span class="line">      proxy(vm, <span class="string">`_data`</span>, key)</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="comment">// observe data</span></span><br><span class="line">  observe(data, <span class="literal">true</span> <span class="comment">/* asRootData */</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;data&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x4F1A;&#x68C0;&#x67E5;data&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x540D;&#x79F0;&#x662F;&#x4E0D;&#x662F;&#x8DDF;methods&#x548C;props&#x4E2D;&#x7684;&#x91CD;&#x590D;&#xFF0C;&#x5982;&#x679C;&#x91CD;&#x590D;&#x5C31;&#x4F1A;&#x7ED9;&#x51FA;&#x8B66;&#x544A;&#x3002;</p>
+<p>&#x63A5;&#x4E0B;&#x6765;data&#x7684;&#x521D;&#x59CB;&#x5316;&#x8FC7;&#x7A0B;&#x4E5F;&#x505A;&#x4E86;&#x4E24;&#x4EF6;&#x4E8B;&#xFF1A;&#x4E00;&#x4EF6;&#x662F;&#x4F7F;&#x7528;proxy&#x5C06;&#x628A;&#x6BCF;&#x4E00;&#x4E2A;&#x503C;vm._data.xxx&#x4EE3;&#x7406;&#x5230;vm.xxx&#xFF1B;&#x53E6;&#x4E00;&#x4EF6;&#x4E8B;&#x5C31;&#x662F;&#x4F7F;&#x7528;observe&#x89C2;&#x6D4B;&#x8FD9;&#x4E2A;data&#x7684;&#x53D8;&#x5316;&#xFF0C;&#x628A;data&#x4E5F;&#x53D8;&#x6210;&#x4E86;&#x54CD;&#x5E94;&#x5F0F;&#x7684;&#x3002;</p>
+<p>&#x7531;&#x8FD9;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;props&#x548C;data&#x7684;&#x521D;&#x59CB;&#x5316;&#x90FD;&#x662F;&#x628A;&#x5B83;&#x4EEC;&#x53D8;&#x6210;&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;&#x3002;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x4F7F;&#x7528;&#x5230;&#x4E86;proxy&#xFF0C;&#x90A3;&#x5C31;&#x5206;&#x6790;&#x4E00;&#x4E0B;&#x5B83;&#x4EEC;&#x5230;&#x5E95;&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#x4E8B;&#x3002;</p>
+<h3 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h3><p>&#x9996;&#x5148;&#x5148;&#x8BA9;&#x6211;&#x4EEC;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;&#x4EE3;&#x7406;&#xFF0C;&#x4EE3;&#x7406;&#x662F;&#x628A;props&#x548C;data&#x7684;&#x5C5E;&#x6027;&#x4EE3;&#x7406;&#x5230;vm&#x5B9E;&#x4F8B;&#x4E0A;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E0B;&#x9762;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x8BBF;&#x95EE;&#x5230;&#x5C5E;&#x6027;&#x7684;&#x539F;&#x56E0;&#x3002;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">props: {</span><br><span class="line">    msg: <span class="string">&apos;hello,vue&apos;</span></span><br><span class="line">},</span><br><span class="line">methods: {</span><br><span class="line">    sayMsg() {</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6211;&#x4EEC;&#x5728;syaMsg&#x51FD;&#x6570;&#x4E2D;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;this.msg&#x8BBF;&#x95EE;&#x5230;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x5728;props&#x5B9A;&#x4E49;&#x7684;msg&#xFF0C;&#x8FD9;&#x4E2A;&#x8FC7;&#x7A0B;&#x53D1;&#x751F;&#x5728;proxy&#x9636;&#x6BB5;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sharedPropertyDefinition = {</span><br><span class="line">  enumerable: <span class="literal">true</span>,</span><br><span class="line">  configurable: <span class="literal">true</span>,</span><br><span class="line">  <span class="keyword">get</span>: noop,</span><br><span class="line">  <span class="keyword">set</span>: noop</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">export function proxy (target: Object, sourceKey: string, key: string) {</span><br><span class="line">  sharedPropertyDefinition.get = <span class="function"><span class="keyword">function</span> <span class="title">proxyGetter</span> (<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>[sourceKey][key]</span><br><span class="line">  }</span><br><span class="line">  sharedPropertyDefinition.set = <span class="function"><span class="keyword">function</span> <span class="title">proxySetter</span> (<span class="params">val</span>) </span>{</span><br><span class="line">    <span class="keyword">this</span>[sourceKey][key] = val</span><br><span class="line">  }</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(target, key, sharedPropertyDefinition)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>proxy&#x7684;&#x5B9E;&#x73B0;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;&#x901A;&#x8FC7;Object.defineProperty&#x628A;target[sourceKey][key]&#x7684;&#x8BFB;&#x5199;&#x53D8;&#x6210;&#x4E86;&#x5BF9;target[key]&#x7684;&#x8BFB;&#x5199;&#x3002;&#x6240;&#x4EE5;&#x5BF9;&#x4E8E;props&#x6765;&#x8BF4;&#xFF0C;&#x5BF9;vm._props.xxx&#x7684;&#x8BFB;&#x5199;&#x53D8;&#x6210;&#x4E86;&#x5BF9;vm.xxx&#x7684;&#x8BFB;&#x5199;&#xFF0C;&#x800C;&#x4F7F;&#x7528;vm._props.xxx&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x5230;props&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;vm.xxx&#x8BBF;&#x95EE;&#x5230;props&#x4E2D;&#x7684;&#x5C5E;&#x6027;&#x3002;&#x540C;&#x7406;&#xFF0C;data&#x4E5F;&#x662F;&#x5982;&#x6B64;&#x3002;</p>
+<p><em>&#x6CE8;&#x610F;&#x5B9E;&#x9645;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x4E0D;&#x8981;&#x76F4;&#x63A5;&#x4F7F;&#x7528;vm._props.xxx&#x53BB;&#x8BBF;&#x95EE;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#xFF0C;&#x56E0;&#x4E3A;_&#x4E00;&#x822C;&#x8868;&#x793A;&#x7528;&#x4E8E;&#x5185;&#x90E8;&#x8BBF;&#x95EE;&#x7684;</em></p>
+<h3 id="observe"><a href="#observe" class="headerlink" title="observe"></a>observe</h3><p>observe&#x7684;&#x529F;&#x80FD;&#x662F;&#x7528;&#x4E8E;&#x68C0;&#x6D4B;&#x6570;&#x636E;&#x7684;&#x53D8;&#x5316;&#xFF0C;&#x51FD;&#x6570;&#x5B9A;&#x4E49;&#x4F4D;&#x4E8E;src/core/observe/index.js</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Attempt to create an observer instance for a value,</span></span><br><span class="line"><span class="comment"> * returns the new observer if successfully observed,</span></span><br><span class="line"><span class="comment"> * or the existing observer if the value already has one.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">observe</span> (<span class="params">value: any, asRootData: ?boolean</span>): <span class="title">Observer</span> | <span class="title">void</span> </span>{</span><br><span class="line">  <span class="keyword">if</span> (!isObject(value) || value <span class="keyword">instanceof</span> VNode) {</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">let</span> ob: Observer | <span class="keyword">void</span></span><br><span class="line">  <span class="keyword">if</span> (hasOwn(value, <span class="string">&apos;__ob__&apos;</span>) &amp;&amp; value.__ob__ <span class="keyword">instanceof</span> Observer) {</span><br><span class="line">    ob = value.__ob__</span><br><span class="line">  } <span class="keyword">else</span> <span class="keyword">if</span> (</span><br><span class="line">    shouldObserve &amp;&amp;</span><br><span class="line">    !isServerRendering() &amp;&amp;</span><br><span class="line">    (<span class="built_in">Array</span>.isArray(value) || isPlainObject(value)) &amp;&amp;</span><br><span class="line">    <span class="built_in">Object</span>.isExtensible(value) &amp;&amp;</span><br><span class="line">    !value._isVue</span><br><span class="line">  ) {</span><br><span class="line">    ob = <span class="keyword">new</span> Observer(value)</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">if</span> (asRootData &amp;&amp; ob) {</span><br><span class="line">    ob.vmCount++</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> ob</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>observe&#x65B9;&#x6CD5;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x7ED9;&#x975E;VNode&#x7684;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;Observer&#xFF0C;&#x5982;&#x679C;&#x5DF2;&#x7ECF;&#x6DFB;&#x52A0;&#x8FC7;&#x5219;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#xFF0C;&#x5426;&#x5219;&#x5728;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x4E0B;&#x53BB;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;Observer&#x5BF9;&#x8C61;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#x6211;&#x4EEC;&#x770B;&#x4E00;&#x4E0B;Observer&#x662F;&#x5E72;&#x5565;&#x7528;&#x7684;&#x3002;</p>
+<h3 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h3><p>Observer&#x662F;&#x4E00;&#x4E2A;&#x7C7B;&#xFF0C;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x7ED9;&#x5BF9;&#x8C61;&#x6DFB;&#x52A0;getter&#x548C;setter&#xFF0C;&#x7528;&#x4E8E;&#x4F9D;&#x8D56;&#x6536;&#x96C6;&#x548C;&#x6D3E;&#x53D1;&#x66F4;&#x65B0;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Observer class that is attached to each observed</span></span><br><span class="line"><span class="comment"> * object. Once attached, the observer converts the target</span></span><br><span class="line"><span class="comment"> * object&apos;s property keys into getter/setters that</span></span><br><span class="line"><span class="comment"> * collect dependencies and dispatch updates.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>{</span><br><span class="line">  value: any;</span><br><span class="line">  dep: Dep;</span><br><span class="line">  vmCount: number; <span class="comment">// number of vms that have this object as root $data</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span> (value: any) {</span><br><span class="line">    <span class="keyword">this</span>.value = value</span><br><span class="line">    <span class="keyword">this</span>.dep = <span class="keyword">new</span> Dep()</span><br><span class="line">    <span class="keyword">this</span>.vmCount = <span class="number">0</span></span><br><span class="line">    def(value, <span class="string">&apos;__ob__&apos;</span>, <span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) {</span><br><span class="line">      <span class="keyword">if</span> (hasProto) {</span><br><span class="line">        protoAugment(value, arrayMethods)</span><br><span class="line">      } <span class="keyword">else</span> {</span><br><span class="line">        copyAugment(value, arrayMethods, arrayKeys)</span><br><span class="line">      }</span><br><span class="line">      <span class="keyword">this</span>.observeArray(value)</span><br><span class="line">    } <span class="keyword">else</span> {</span><br><span class="line">      <span class="keyword">this</span>.walk(value)</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Walk through all properties and convert them into</span></span><br><span class="line"><span class="comment">   * getter/setters. This method should only be called when</span></span><br><span class="line"><span class="comment">   * value type is Object.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  walk (obj: <span class="built_in">Object</span>) {</span><br><span class="line">    <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(obj)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; keys.length; i++) {</span><br><span class="line">      defineReactive(obj, keys[i])</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Observe a list of Array items.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  observeArray (items: <span class="built_in">Array</span>&lt;any&gt;) {</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++) {</span><br><span class="line">      observe(items[i])</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>Observer&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#x903B;&#x8F91;&#x7B80;&#x5355;&#xFF0C;&#x9996;&#x5148;&#x5B9E;&#x4F8B;&#x5316;Dep&#x5BF9;&#x8C61;&#xFF0C;&#x63A5;&#x7740;&#x6267;&#x884C;def&#x51FD;&#x6570;&#x628A;&#x81EA;&#x8EAB;&#x5B9E;&#x4F8B;&#x6DFB;&#x52A0;&#x5230;&#x6570;&#x636E;&#x5BF9;&#x8C61;value&#x7684;_ob_&#x5C5E;&#x6027;&#x4E0A;&#xFF0C;def&#x7684;&#x5B9A;&#x4E49;&#x5728;src/core/util/lang.js&#x4E2D;&#xFF1A;</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Define a property.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">def</span> (<span class="params">obj: Object, key: string, val: any, enumerable?: boolean</span>) </span>{</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(obj, key, {</span><br><span class="line">    value: val,</span><br><span class="line">    enumerable: !!enumerable,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">  })</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>def&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x7684;Object.defineProperty&#x7684;&#x5C01;&#x88C5;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x8F93;&#x51FA;data&#x4E0A;&#x7684;&#x5BF9;&#x8C61;&#x7C7B;&#x578B;&#x65F6;&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x8BE5;&#x5BF9;&#x8C61;&#x591A;&#x4E86;&#x4E00;&#x4E2A;_ob_&#x7684;&#x5C5E;&#x6027;&#x3002;</p>
+<p>&#x56DE;&#x5230;Observe&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x4F1A;&#x5BF9;value&#x505A;&#x5224;&#x65AD;&#xFF0C;&#x5BF9;&#x4E8E;&#x6570;&#x7EC4;&#x4F1A;&#x8C03;&#x7528;observeArray&#x65B9;&#x6CD5;&#xFF0C;&#x5426;&#x5219;&#x5BF9;&#x7EAF;&#x5BF9;&#x8C61;&#x8C03;&#x7528;walk&#x65B9;&#x6CD5;&#x3002;observeArray&#x662F;&#x904D;&#x5386;&#x6570;&#x7EC4;&#x518D;&#x6B21;&#x8C03;&#x7528;observe&#x65B9;&#x6CD5;&#xFF0C;&#x800C;walk&#x65B9;&#x6CD5;&#x662F;&#x904D;&#x5386;&#x5BF9;&#x8C61;&#x7684;key&#x8C03;&#x7528;defineReactive&#x65B9;&#x6CD5;&#x3002;&#x90A3;defineReactive&#x53C8;&#x662F;&#x505A;&#x4EC0;&#x4E48;&#x7528;&#x7684;&#x5462;&#xFF0C;&#x6211;&#x4EEC;&#x7EE7;&#x7EED;&#x5F80;&#x4E0B;&#x770B;&#x3002;</p>
+<h3 id="defineReactive"><a href="#defineReactive" class="headerlink" title="defineReactive"></a>defineReactive</h3><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Define a reactive property on an Object.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  obj: Object,</span></span></span><br><span class="line"><span class="function"><span class="params">  key: string,</span></span></span><br><span class="line"><span class="function"><span class="params">  val: any,</span></span></span><br><span class="line"><span class="function"><span class="params">  customSetter?: ?Function,</span></span></span><br><span class="line"><span class="function"><span class="params">  shallow?: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>{</span><br><span class="line">  <span class="keyword">const</span> dep = <span class="keyword">new</span> Dep()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> property = <span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  <span class="keyword">if</span> (property &amp;&amp; property.configurable === <span class="literal">false</span>) {</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="comment">// cater for pre-defined getter/setters</span></span><br><span class="line">  <span class="keyword">const</span> getter = property &amp;&amp; property.get</span><br><span class="line">  <span class="keyword">const</span> setter = property &amp;&amp; property.set</span><br><span class="line">  <span class="keyword">if</span> ((!getter || setter) &amp;&amp; <span class="built_in">arguments</span>.length === <span class="number">2</span>) {</span><br><span class="line">    val = obj[key]</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(obj, key, {</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    <span class="keyword">get</span>: function reactiveGetter () {</span><br><span class="line">      <span class="keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="keyword">if</span> (Dep.target) {</span><br><span class="line">        dep.depend()</span><br><span class="line">        <span class="keyword">if</span> (childOb) {</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) {</span><br><span class="line">            dependArray(value)</span><br><span class="line">          }</span><br><span class="line">        }</span><br><span class="line">      }</span><br><span class="line">      <span class="keyword">return</span> value</span><br><span class="line">    },</span><br><span class="line">    <span class="keyword">set</span>: function reactiveSetter (newVal) {</span><br><span class="line">      <span class="keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="comment">/* eslint-disable no-self-compare */</span></span><br><span class="line">      <span class="keyword">if</span> (newVal === value || (newVal !== newVal &amp;&amp; value !== value)) {</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      }</span><br><span class="line">      <span class="comment">/* eslint-enable no-self-compare */</span></span><br><span class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">&apos;production&apos;</span> &amp;&amp; customSetter) {</span><br><span class="line">        customSetter()</span><br><span class="line">      }</span><br><span class="line">      <span class="comment">// #7981: for accessor properties without setter</span></span><br><span class="line">      <span class="keyword">if</span> (getter &amp;&amp; !setter) <span class="keyword">return</span></span><br><span class="line">      <span class="keyword">if</span> (setter) {</span><br><span class="line">        setter.call(obj, newVal)</span><br><span class="line">      } <span class="keyword">else</span> {</span><br><span class="line">        val = newVal</span><br><span class="line">      }</span><br><span class="line">      childOb = !shallow &amp;&amp; observe(newVal)</span><br><span class="line">      dep.notify()</span><br><span class="line">    }</span><br><span class="line">  })</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>defineReactive&#x51FD;&#x6570;&#x6700;&#x5F00;&#x59CB;&#x521D;&#x59CB;&#x5316;Dep&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x63A5;&#x7740;&#x62FF;&#x5230;obj&#x7684;&#x5C5E;&#x6027;&#x63CF;&#x8FF0;&#x7B26;&#xFF0C;&#x7136;&#x540E;&#x5BF9;&#x5B50;&#x5BF9;&#x8C61;&#x9012;&#x5F52;&#x8C03;&#x7528;observe&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x4FDD;&#x8BC1;&#x4E86;&#x65E0;&#x8BBA;obj&#x7684;&#x7ED3;&#x6784;&#x591A;&#x590D;&#x6742;&#xFF0C;&#x5B83;&#x7684;&#x6240;&#x6709;&#x5B50;&#x5C5E;&#x6027;&#x4E5F;&#x80FD;&#x53D8;&#x6210;&#x54CD;&#x5E94;&#x5F0F;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x8BBF;&#x95EE;&#x6216;&#x8005;&#x4FEE;&#x6539;obj&#x4E2D;&#x4E00;&#x4E2A;&#x5D4C;&#x5957;&#x8F83;&#x6DF1;&#x7684;&#x5C5E;&#x6027;&#xFF0C;&#x4E5F;&#x80FD;&#x89E6;&#x53D1;getter&#x548C;setter&#x3002;&#x6700;&#x540E;&#x5229;&#x7528;Object.defineProperty&#x53BB;&#x7ED9;obj&#x7684;&#x5C5E;&#x6027;key&#x6DFB;&#x52A0;getter&#x548C;setter&#x3002;</p>
+<p><strong>&#x603B;&#x7ED3;&#x65F6;&#x523B;&#x5230;&#x4E86;~</strong>  </p>
+<p>&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;&#x7684;&#x6838;&#x5FC3;&#x5C31;&#x662F;Object.definProperty&#x7ED9;&#x6570;&#x636E;&#x6DFB;&#x52A0;getter&#x548C;setter&#xFF0C;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x6211;&#x4EEC;&#x5728;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x4EE5;&#x53CA;&#x5199;&#x6570;&#x636E;&#x7684;&#x65F6;&#x5019;&#x80FD;&#x591F;&#x81EA;&#x52A8;&#x6267;&#x884C;&#x4E00;&#x4E9B;&#x903B;&#x8F91;&#xFF1A;getter&#x505A;&#x7684;&#x4E8B;&#x5C31;&#x662F;&#x4F9D;&#x8D56;&#x6536;&#x96C6;&#xFF0C;setter&#x505A;&#x7684;&#x4E8B;&#x60C5;&#x5C31;&#x662F;&#x6D3E;&#x53D1;&#x66F4;&#x65B0;&#x3002;</p>
+</body></html>
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2020-04-06T07:39:54.863Z" itemprop="datePublished">2020-04-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a class="ui tiny button disabled"><i class="angle left icon"></i>Previous</a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2020/03/22/blog13/" class="ui tiny button">
+                    
+                    复制备份docker容器数据的方法
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#响应式对象"><span>响应式对象</span></a><ol><li><a href="#Obect-defineProperty"><span>Obect.defineProperty</span></a></li><li><a href="#initState"><span>initState</span></a></li><li><a href="#proxy"><span>proxy</span></a></li><li><a href="#observe"><span>observe</span></a></li><li><a href="#Observer"><span>Observer</span></a></li><li><a href="#defineReactive"><span>defineReactive</span></a></li></ol></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2020 <a href="/">Leni</a>,
+        <a href="https://github.com/leniNikky" target="_blank">my github</a>.
+    </div>
+</div>
+
+    </div>
+
+
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
+</body>
+</html>
