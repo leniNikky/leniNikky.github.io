@@ -6,18 +6,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="description" content="">
-    <title>Vue2.0+源码分析——响应式原理(一) | Coding with cooker&#39; soul</title>
+    <title>Vue2.0+源码分析——响应式原理 | Coding with cooker&#39; soul</title>
 
     <!-- Open Graph -->
-    <meta name="description" content="&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5BF9;&amp;#x8C61;Vue.js&amp;#x7684;&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5B9E;&amp;#x73B0;&amp;#x7684;&amp;#x6838;&amp;#x5FC3;&amp;#x662F;&amp;#x4F7F;&amp;#x7528;&amp;#x5230;&amp;#x4E86;ES5&amp;#x7684;Obect.defineProperty&amp;#x3002; Ob">
+    <meta name="description" content="&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5BF9;&amp;#x8C61;Vue3.0&amp;#x6765;&amp;#x4E86;&amp;#xFF0C;&amp;#x8DDF;Vue2.0&amp;#x7684;&amp;#x533A;&amp;#x522B;&amp;#x8FD8;&amp;#x662F;&amp;#x633A;&amp;#x5927;&amp;#x7684;&amp;#xFF0C;&amp;#x5728;&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x8FD9;&amp;#x5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue2.0+源码分析——响应式原理(一)">
+<meta property="og:title" content="Vue2.0+源码分析——响应式原理">
 <meta property="og:url" content="http://yoursite.com/2020/04/06/blog14/index.html">
 <meta property="og:site_name" content="Coding with cooker&#39; soul">
-<meta property="og:description" content="&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5BF9;&amp;#x8C61;Vue.js&amp;#x7684;&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5B9E;&amp;#x73B0;&amp;#x7684;&amp;#x6838;&amp;#x5FC3;&amp;#x662F;&amp;#x4F7F;&amp;#x7528;&amp;#x5230;&amp;#x4E86;ES5&amp;#x7684;Obect.defineProperty&amp;#x3002; Ob">
+<meta property="og:description" content="&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x5BF9;&amp;#x8C61;Vue3.0&amp;#x6765;&amp;#x4E86;&amp;#xFF0C;&amp;#x8DDF;Vue2.0&amp;#x7684;&amp;#x533A;&amp;#x522B;&amp;#x8FD8;&amp;#x662F;&amp;#x633A;&amp;#x5927;&amp;#x7684;&amp;#xFF0C;&amp;#x5728;&amp;#x54CD;&amp;#x5E94;&amp;#x5F0F;&amp;#x8FD9;&amp;#x5">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-06T07:39:54.863Z">
-<meta property="article:modified_time" content="2020-04-11T15:45:21.006Z">
+<meta property="article:modified_time" content="2020-04-16T15:31:12.254Z">
 <meta property="article:author" content="Leni">
 <meta name="twitter:card" content="summary">
 
@@ -132,7 +132,7 @@
 
 <h1 class="ui header">
     
-    Vue2.0+源码分析——响应式原理(一)
+    Vue2.0+源码分析——响应式原理
 </h1>
 
 
@@ -141,7 +141,7 @@
 
                     <div class="article-entry" itemprop="articleBody">
                         
-                        <html><head></head><body><h2 id="&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;"><a href="#&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;" class="headerlink" title="&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;"></a>&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;</h2><p>Vue.js&#x7684;&#x54CD;&#x5E94;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;&#x6838;&#x5FC3;&#x662F;&#x4F7F;&#x7528;&#x5230;&#x4E86;ES5&#x7684;Obect.defineProperty&#x3002;</p>
+                        <html><head></head><body><h2 id="&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;"><a href="#&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;" class="headerlink" title="&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;"></a>&#x54CD;&#x5E94;&#x5F0F;&#x5BF9;&#x8C61;</h2><p>Vue3.0&#x6765;&#x4E86;&#xFF0C;&#x8DDF;Vue2.0&#x7684;&#x533A;&#x522B;&#x8FD8;&#x662F;&#x633A;&#x5927;&#x7684;&#xFF0C;&#x5728;&#x54CD;&#x5E94;&#x5F0F;&#x8FD9;&#x5757;&#xFF0C;Vue3.0&#x7528;&#x7684;ES6&#x7684;proxy&#x3002;&#x800C;Vue.js&#x7684;&#x54CD;&#x5E94;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;&#x6838;&#x5FC3;&#x662F;&#x4F7F;&#x7528;&#x5230;&#x4E86;ES5&#x7684;Obect.defineProperty&#x3002;&#x8D81;&#x8FD8;&#x6CA1;&#x7528;Vue3.0&#xFF0C;&#x518D;&#x56DE;&#x987E;&#x4E00;&#x4E0B;Vue2.0&#x7684;&#x54CD;&#x5E94;&#x5F0F;&#x539F;&#x7406;&#x5427;!</p>
 <h3 id="Obect-defineProperty"><a href="#Obect-defineProperty" class="headerlink" title="Obect.defineProperty"></a>Obect.defineProperty</h3><p>Obect.defineProperty&#x4F1A;&#x76F4;&#x63A5;&#x5728;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x65B0;&#x5C5E;&#x6027;&#xFF0C;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x73B0;&#x6709;&#x5C5E;&#x6027;&#xFF0C;&#x8BED;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
 <figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(obj, prop, descriptor)</span><br></pre></td></tr></tbody></table></figure>
 <p>obj&#x662F;&#x8981;&#x5728;&#x5176;&#x4E0A;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x7684;&#x5BF9;&#x8C61;&#xFF1B;prop&#x662F;&#x8981;&#x5B9A;&#x4E49;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x7684;&#x5C5E;&#x6027;&#x7684;&#x540D;&#x79F0;&#xFF1B;descriptor&#x662F;&#x5C06;&#x88AB;&#x5B9A;&#x4E49;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x7684;&#x5C5E;&#x6027;&#x540D;&#x5B57;&#x3002;</p>
